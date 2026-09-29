@@ -15,10 +15,35 @@ function cabecera() {}
 function cuerpo()
 {
 ?>
-    <br><br>esto es html
+    <br><br>esto es html <!-- esto es un comentario -->
 
     <?php 
-        echo "dnkfnek";
+        echo "dnkfnekaaaa"; //esto es un comentario;
+
+
+        $var1 = 25;
+        $cadena = 'esto es una cadena';
+
+        $var1 += 0b1000;
+        echo $var1;
+
+        $una_cadena = "hola";
+        $unaCadena = "adiós";
+
+        $var1 -= 17;
+        echo "$var1";
+
+        $unaCadena = 45;
+        echo $unaCadena;
+
+        if (isset($cadena2)) {
+            echo $cadena2;
+        }
+
+        
+
+
+        
     ?>
     
 <?php
