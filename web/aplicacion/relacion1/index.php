@@ -1,5 +1,5 @@
 <?php
-include_once(dirname(__FILE__) . "/cabecera.php");
+include_once(dirname(__FILE__) . "/../../cabecera.php");
 //controlador
 
 
@@ -8,7 +8,7 @@ include_once(dirname(__FILE__) . "/cabecera.php");
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
-inicioCuerpo("2DAW APLICACION");
+inicioCuerpo("RELACIÓN 1");
 cuerpo();  //llamo a la vista
 finCuerpo();
 // **********************************************************
@@ -26,6 +26,6 @@ function cuerpo()
 {
 ?>
     <br><br>
-    <a href="./aplicacion/pruebas/index.php">Acceso a Pruebas</a>
+    <a href="/aplicacion/relacion1/ejercicio1.php">Ejercicio1</a>
 <?php
 }

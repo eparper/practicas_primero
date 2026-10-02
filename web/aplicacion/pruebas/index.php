@@ -18,6 +18,7 @@ function cuerpo()
     <br><br>
     Elemento de pruebas
     <br><br>
-    <a href="basicas.php">Funcionamiento básico</a>
+    <a href="basicas.php">Funcionamiento básico</a><br>
+    <a href="pasopar.php">Comunicación controlador-vista</a><br>
 <?php
 }
