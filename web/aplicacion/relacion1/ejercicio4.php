@@ -12,7 +12,7 @@ $barraUbicacion = [
         "url" => "/aplicacion/relacion1/index.php"
     ],
     [
-        "nombre" => "Ejercicio 1",
+        "nombre" => "Ejercicio 4",
         "url" => ""
     ]
     
@@ -22,7 +22,7 @@ $barraUbicacion = [
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
-inicioCuerpo("Ejercicio 1", $barraUbicacion);
+inicioCuerpo("Ejercicio 4", $barraUbicacion);
 cuerpo();  //llamo a la vista
 finCuerpo();
 // **********************************************************

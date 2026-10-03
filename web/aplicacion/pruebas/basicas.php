@@ -4,12 +4,28 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 define("NUME", 25);
 const NUME1 = 56;
 
+$barraUbicacion = [
+    [
+        "nombre" => "Inicio",
+        "url" => "/index.php"
+    ],
+    [
+        "nombre" => "Pruebas",
+        "url" => "/aplicacion/pruebas/index.php"
+    ],
+    [
+        "nombre" => "Pruebas básicas",
+        "url" => ""
+    ]
+    
+];
+
 //controlador
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
-inicioCuerpo("Pruebas básicas");
+inicioCuerpo("Pruebas básicas", $barraUbicacion);
 cuerpo(); //llamo a la vista
 finCuerpo();
 // **********************************************************

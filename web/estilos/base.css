@@ -91,3 +91,23 @@ body {
     border:thin solid red;
     padding:5px;
 }
+
+#barraMenu ul {
+    display: flex;
+    padding-left: 0px;
+    margin: 0px;
+}
+
+#barraMenu ul li {
+    padding: 1%;
+    list-style: none;
+    
+}
+
+header, #barraMenu, #barraLogin {
+    background-color: #14e737;
+}
+
+#titulo {
+    margin: 0;
+}

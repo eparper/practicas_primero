@@ -1,11 +1,11 @@
 <?php
 
-function paginaError($mensaje)
+function paginaError($mensaje, $barraUbicacion)
 {
   header("HTTP/1.0 404 $mensaje");
   inicioCabecera("PRACTICA");
   finCabecera();
-  inicioCuerpo("ERROR");
+  inicioCuerpo("ERROR", $barraUbicacion);
   echo "<br />\n";
   echo $mensaje;
   echo "<br />\n";
@@ -48,7 +48,7 @@ function finCabecera()
 <?php   
 }
 
-function inicioCuerpo($cabecera)
+function inicioCuerpo($cabecera, $barraUbicacion)
 {
     global $acceso;
 
@@ -71,7 +71,26 @@ function inicioCuerpo($cabecera)
                  </ul> 
                 
             </div>
-            
+            <div id="barraUbicacion">
+                
+                <?php
+                    for ($cont = 0; $cont < count($barraUbicacion); $cont++) {
+                        ?>
+                        <?php 
+                            if ($barraUbicacion[$cont] == $barraUbicacion[count($barraUbicacion) - 1]) {
+                                echo $barraUbicacion[$cont]["nombre"];
+                            }
+                            else { ?>
+                                <a href="<?php echo $barraUbicacion[$cont]["url"];?>"><?php echo $barraUbicacion[$cont]["nombre"];?></a><?php
+                            }
+                        ?>
+                        
+                        <?php
+                    }
+                ?>
+
+
+            </div>
             <div>
 <?php   
 }

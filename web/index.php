@@ -2,13 +2,19 @@
 include_once(dirname(__FILE__) . "/cabecera.php");
 //controlador
 
-
+$barraUbicacion = [
+    [
+        "nombre" => "Inicio",
+        "url" => ""
+    ]
+    
+];
 
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
-inicioCuerpo("2DAW APLICACION");
+inicioCuerpo("2DAW APLICACION", $barraUbicacion);
 cuerpo();  //llamo a la vista
 finCuerpo();
 // **********************************************************
