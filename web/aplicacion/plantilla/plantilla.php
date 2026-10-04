@@ -104,7 +104,7 @@ function finCuerpo()
             <footer>
                 <hr width="90%"  />  
                 <div>
-                    Trabajo de Noemí
+                    Noemí Parejo
                 </div>
             </footer>
         </div>
