@@ -40,6 +40,6 @@ function cuerpo()
 {
 ?>
     <br><br>
-    <h1>Ejercicio 1</h1>
+    <h1>Ejercicio 7</h1>
 <?php
 }
