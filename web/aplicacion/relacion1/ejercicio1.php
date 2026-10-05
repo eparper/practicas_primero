@@ -50,10 +50,24 @@ $numeroBase4 = "1203";
 $numeroBase8 = base_convert($numeroBase4, 4, 8);
 
 //-------------DOS FUNCIONES MÁS (decbin y abs)----------------
-$numeroABinario = decbin($numeroDecimal);
+$numeroDecimal3 = 35;
+$numeroABinario = decbin($numeroDecimal3);
 
 $numeroNegativo = -78;
 $valorAbsoluto = abs($numeroNegativo);
+
+//-------------DEFINIR VARIABLES EN BINARIO, OCTAL Y HEXADECIMAL----------------
+//estas variables se imprimen en decimal
+$varBinario = 0b110111;
+$varOctal = 067543;
+$varHexadecimal = 0xf34;
+
+//pasamos las variables a binario, octal y hexadecimal:
+$varBinarioOriginal = decbin($varBinario);
+$varOctalOriginal = decoct($varOctal);
+$varHexaOriginal = dechex($varHexadecimal);
+
+
 
 //array que le paso a la función cuerpo con todas las variables necesarias:
 $arrayParams = [
@@ -69,9 +83,16 @@ $arrayParams = [
     "aHexadecimal" => $aHexadecimal,
     "numeroBase4" => $numeroBase4,
     "numeroBase8" => $numeroBase8,
+    "numeroDecimal3" => $numeroDecimal3,
     "numeroABinario" => $numeroABinario,
     "numeroNegativo" => $numeroNegativo,
-    "valorAbsoluto" => $valorAbsoluto
+    "valorAbsoluto" => $valorAbsoluto,
+    "varBinario" => $varBinario,
+    "varOctal" => $varOctal,
+    "varHexadecimal" => $varHexadecimal,
+    "varBinarioOriginal" => $varBinarioOriginal,
+    "varOctalOriginal" => $varOctalOriginal,
+    "varHexaOriginal" => $varHexaOriginal
 ];
 
 //dibuja la plantilla de la vista
@@ -160,10 +181,21 @@ function cuerpo($arrayParams)
 
             //********************DOS FUNCIONES MÁS********************** */
             echo "- Dos funciones más (decbin y abs):<br><br>".PHP_EOL;
-            echo "El número en decimal es: {$arrayParams["numeroDecimal"]}<br>".PHP_EOL;
-            echo "decbin({$arrayParams["numeroDecimal"]}) = {$arrayParams["numeroABinario"]}<br><br>".PHP_EOL;
+            echo "El número en decimal es: {$arrayParams["numeroDecimal3"]}<br>".PHP_EOL;
+            echo "decbin({$arrayParams["numeroDecimal3"]}) = {$arrayParams["numeroABinario"]}<br><br>".PHP_EOL;
 
             echo "El número negativo es: {$arrayParams["numeroNegativo"]}<br>".PHP_EOL;
             echo "abs({$arrayParams["numeroNegativo"]}) = {$arrayParams["valorAbsoluto"]}<br><br>".PHP_EOL;
+
+            //********************BINARIO, OCTAL Y HEXADECIMAL********************** */
+            echo "- Variables en binario, octal y hexadecimal:<br><br>".PHP_EOL;
+            echo "El número en binario es: {$arrayParams["varBinarioOriginal"]}<br>".PHP_EOL;
+            echo "El número en decimal es: {$arrayParams["varBinario"]}<br><br>".PHP_EOL;
+
+            echo "El número en octal es: {$arrayParams["varOctalOriginal"]}<br>".PHP_EOL;
+            echo "El número en decimal es: {$arrayParams["varOctal"]}<br><br>".PHP_EOL;
+
+            echo "El número en hexadecimal es: {$arrayParams["varHexaOriginal"]}<br>".PHP_EOL;
+            echo "El número en decimal es: {$arrayParams["varHexadecimal"]}<br><br>".PHP_EOL;
 
 }
