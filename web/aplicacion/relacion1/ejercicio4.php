@@ -19,18 +19,35 @@ $barraUbicacion = [
 ];
 
 //constante $FILAS
-$FILAS = 5;
+$FILAS = 8;
 
 $array = [];
+$arrayConstante = [];
 
+//sin la constante FILAS
 for ($fila = 0; $fila < 5; $fila++) {
-    echo $fila + 1;
-    //$array[$fila] = [];
+    
+    $array[$fila] = [];
 
-    for ($col = 0; $col < $fila; $col++) {
-        $array[$fila][$col] = $col + 1;
-        echo $array[$fila][$col];
+    for ($col = 0; $col < count($array); $col++) {
+
+        $array[$fila][$col] = $fila + 1;
+        
     }
+
+}
+
+//con la constante FILAS
+for ($fila = 0; $fila < $FILAS; $fila++) {
+    
+    $arrayConstante[$fila] = [];
+
+    for ($col = 0; $col < count($arrayConstante); $col++) {
+
+        $arrayConstante[$fila][$col] = $fila + 1;
+        
+    }
+
 }
 
 
@@ -39,7 +56,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("Ejercicio 4", $barraUbicacion);
-cuerpo($array);  //llamo a la vista
+cuerpo($array, $arrayConstante, $FILAS);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -52,7 +69,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo($array)
+function cuerpo($array, $arrayConstante, $FILAS)
 {
 ?>
     <br><br>
@@ -75,13 +92,29 @@ function cuerpo($array)
 
     echo "SIN LA CONSTANTE \$FILAS:<br>";
 
-    for ($filas = 1; $filas <= count($array); $filas++) {
+    for ($fila = 0; $fila < 5; $fila++) {
 
-        echo "$filas ";
 
-        for ($columnas = 1; $columnas <= $filas; $columnas++) {
-            
-            echo "$columnas";
+        //se le pone el igual porque estamos cogiendo ahora lo que sea el valor de $fila
+        for ($col = 0; $col <= $fila; $col++) {
+
+            echo "{$array[$fila][$col]} ";
+        }
+
+        echo "<br>";
+    }
+
+    //************************************************************************************** */
+
+    echo "<br>CON LA CONSTANTE \$FILAS:<br>";
+
+    for ($fila = 0; $fila < $FILAS; $fila++) {
+
+
+        //se le pone el igual porque estamos cogiendo ahora lo que sea el valor de $fila
+        for ($col = 0; $col <= $fila; $col++) {
+
+            echo "{$arrayConstante[$fila][$col]} ";
         }
 
         echo "<br>";
