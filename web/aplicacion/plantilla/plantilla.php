@@ -1,11 +1,11 @@
 <?php
 
-function paginaError($mensaje, $barraUbicacion)
+function paginaError($mensaje)
 {
   header("HTTP/1.0 404 $mensaje");
   inicioCabecera("PRACTICA");
   finCabecera();
-  inicioCuerpo("ERROR", []);
+  inicioCuerpo("ERROR");
   echo "<br />\n";
   echo $mensaje;
   echo "<br />\n";
@@ -48,7 +48,7 @@ function finCabecera()
 <?php   
 }
 
-function inicioCuerpo(string $cabecera, array $barraUbicacion)
+function inicioCuerpo(string $cabecera, array $barraUbicacion = [])
 {
     global $acceso;
 

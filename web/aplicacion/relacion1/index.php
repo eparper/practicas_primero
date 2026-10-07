@@ -9,6 +9,7 @@ $barraUbicacion = [
     ],
     [
         "nombre" => "Relación 1"
+
     ]
     
 ];
