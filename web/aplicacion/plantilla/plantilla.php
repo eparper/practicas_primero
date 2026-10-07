@@ -58,6 +58,14 @@ function inicioCuerpo($cabecera, $barraUbicacion)
         
             <header>
                 <h1 id="titulo"><?php echo $cabecera;?></h1>
+
+                <!-- <div id="menuPrincipal" >
+                    <ul>
+                        <li><a href="/index.php">Inicio</a></li>
+                        <li><a href="/aplicacion/relacion1/index.php">Relación 1</a></li>
+
+                    </ul>
+                </div> -->
             </header>
             
             <div id="barraLogin">
@@ -112,3 +120,27 @@ function finCuerpo()
 </html>
 <?php
 }
+
+/**
+ * Funcion que nos permite mostrar la barra de ubicacion 
+ *
+ * @param array $ubicacion
+ * @return void
+ */
+//  function mostrarBarraUbicacion(array $ubicacion)
+//     {
+//         echo "<nav class='barraModdle'>";
+//         $total = count($ubicacion);
+//         $contador = 0;
+
+//         foreach ($ubicacion as $nombre => $url) {
+//             $contador++;
+//             if ($contador < $total) {
+//                 echo "<a href='{$url}'>{$nombre}</a> &raquo; ";
+//             } else {
+//                 echo "<span>{$nombre}</span>";
+//             }
+//         }
+
+//         echo "</nav><br>";
+//     }

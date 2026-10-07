@@ -56,7 +56,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("Ejercicio 4", $barraUbicacion);
-cuerpo($array, $arrayConstante, $FILAS);  //llamo a la vista
+cuerpo($array, $arrayConstante);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -69,7 +69,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo($array, $arrayConstante, $FILAS)
+function cuerpo($array, $arrayConstante)
 {
 ?>
     <br><br>
@@ -92,13 +92,13 @@ function cuerpo($array, $arrayConstante, $FILAS)
 
     echo "SIN LA CONSTANTE \$FILAS:<br>";
 
-    for ($fila = 0; $fila < 5; $fila++) {
+    foreach ($array as $elemento) {
 
 
         //se le pone el igual porque estamos cogiendo ahora lo que sea el valor de $fila
-        for ($col = 0; $col <= $fila; $col++) {
+        foreach ($elemento as $valor) {
 
-            echo "{$array[$fila][$col]} ";
+            echo "{$valor} ";
         }
 
         echo "<br>";
@@ -108,13 +108,13 @@ function cuerpo($array, $arrayConstante, $FILAS)
 
     echo "<br>CON LA CONSTANTE \$FILAS:<br>";
 
-    for ($fila = 0; $fila < $FILAS; $fila++) {
+    foreach ($arrayConstante as $elemento) {
 
 
         //se le pone el igual porque estamos cogiendo ahora lo que sea el valor de $fila
-        for ($col = 0; $col <= $fila; $col++) {
+        foreach ($elemento as $valor) {
 
-            echo "{$arrayConstante[$fila][$col]} ";
+            echo "{$valor} ";
         }
 
         echo "<br>";
