@@ -12,8 +12,7 @@ $barraUbicacion = [
         "url" => "/aplicacion/relacion1/index.php"
     ],
     [
-        "nombre" => "Ejercicio 7",
-        "url" => ""
+        "nombre" => "Ejercicio 7"
     ]
     
 ];

@@ -5,7 +5,7 @@ function paginaError($mensaje, $barraUbicacion)
   header("HTTP/1.0 404 $mensaje");
   inicioCabecera("PRACTICA");
   finCabecera();
-  inicioCuerpo("ERROR", $barraUbicacion);
+  inicioCuerpo("ERROR", []);
   echo "<br />\n";
   echo $mensaje;
   echo "<br />\n";
@@ -48,7 +48,7 @@ function finCabecera()
 <?php   
 }
 
-function inicioCuerpo($cabecera, $barraUbicacion)
+function inicioCuerpo(string $cabecera, array $barraUbicacion)
 {
     global $acceso;
 
@@ -58,14 +58,6 @@ function inicioCuerpo($cabecera, $barraUbicacion)
         
             <header>
                 <h1 id="titulo"><?php echo $cabecera;?></h1>
-
-                <!-- <div id="menuPrincipal" >
-                    <ul>
-                        <li><a href="/index.php">Inicio</a></li>
-                        <li><a href="/aplicacion/relacion1/index.php">Relación 1</a></li>
-
-                    </ul>
-                </div> -->
             </header>
             
             <div id="barraLogin">
@@ -82,15 +74,46 @@ function inicioCuerpo($cabecera, $barraUbicacion)
             <div id="barraUbicacion">
                 
                 <?php
-                    for ($cont = 0; $cont < count($barraUbicacion); $cont++) {
+                    //esta opción no es eficiente, habría que repetir código
+                    // for ($cont = 0; $cont < count($barraUbicacion); $cont++) {
                         ?>
                         <?php 
-                            if ($barraUbicacion[$cont] == $barraUbicacion[count($barraUbicacion) - 1]) {
-                                echo $barraUbicacion[$cont]["nombre"];
+                        //si es la última posición muestra solo el nombre sin enlace:
+                            // if ($barraUbicacion[$cont] == $barraUbicacion[count($barraUbicacion) - 1]) {
+                            //     echo $barraUbicacion[$cont]["nombre"];
+                            // }
+                            // else { ?>
+                                <!-- <a href=" --><?php //echo $barraUbicacion[$cont]["url"];?><!--">--><?php //echo $barraUbicacion[$cont]["nombre"];?></a><?php
+                            //}
+                        ?>
+                        
+                        <?php
+                    //}
+
+                    //opción Vicente, se pueden poner más opciones de esta manera
+                    foreach ($barraUbicacion as $elemento) {
+                        ?>
+                        <?php 
+                        //
+                            if (isset($elemento["url"])) {
+                                echo "<a href = '{$elemento["url"]}' >";
                             }
-                            else { ?>
-                                <a href="<?php echo $barraUbicacion[$cont]["url"];?>"><?php echo $barraUbicacion[$cont]["nombre"];?></a><?php
+                            echo $elemento["nombre"];
+
+                            if (isset($elemento["url"])) {
+                                echo "</a>";
                             }
+
+                            //se pueden poner más opciones
+                            if (isset($elemento["adicional"])) {
+                                echo $elemento["adicional"];
+                                
+                            }
+                            else {
+                                echo "&nbsp;&nbsp;";
+                            }
+                
+                            
                         ?>
                         
                         <?php
@@ -121,26 +144,4 @@ function finCuerpo()
 <?php
 }
 
-/**
- * Funcion que nos permite mostrar la barra de ubicacion 
- *
- * @param array $ubicacion
- * @return void
- */
-//  function mostrarBarraUbicacion(array $ubicacion)
-//     {
-//         echo "<nav class='barraModdle'>";
-//         $total = count($ubicacion);
-//         $contador = 0;
 
-//         foreach ($ubicacion as $nombre => $url) {
-//             $contador++;
-//             if ($contador < $total) {
-//                 echo "<a href='{$url}'>{$nombre}</a> &raquo; ";
-//             } else {
-//                 echo "<span>{$nombre}</span>";
-//             }
-//         }
-
-//         echo "</nav><br>";
-//     }

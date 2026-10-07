@@ -5,15 +5,15 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 $barraUbicacion = [
     [
         "nombre" => "Inicio",
-        "url" => "/index.php"
+        "url" => "/index.php",
+        "adicional" => "hola"
     ],
     [
         "nombre" => "Relación 1",
         "url" => "/aplicacion/relacion1/index.php"
     ],
     [
-        "nombre" => "Ejercicio 4",
-        "url" => ""
+        "nombre" => "Ejercicio 4"
     ]
     
 ];

@@ -8,8 +8,7 @@ $barraUbicacion = [
         "url" => "/index.php"
     ],
     [
-        "nombre" => "Pruebas",
-        "url" => ""
+        "nombre" => "Pruebas"
     ],
     
 ];

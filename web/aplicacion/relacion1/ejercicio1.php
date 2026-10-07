@@ -13,7 +13,7 @@ $barraUbicacion = [
     ],
     [
         "nombre" => "Ejercicio 1",
-        "url" => ""
+        
     ]
     
 ];

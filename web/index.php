@@ -4,8 +4,7 @@ include_once(dirname(__FILE__) . "/cabecera.php");
 
 $barraUbicacion = [
     [
-        "nombre" => "Inicio",
-        "url" => ""
+        "nombre" => "Inicio"
     ]
     
 ];

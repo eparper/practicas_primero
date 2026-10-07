@@ -14,8 +14,7 @@ $barraUbicacion = [
         "url" => "/aplicacion/pruebas/index.php"
     ],
     [
-        "nombre" => "Pruebas básicas",
-        "url" => ""
+        "nombre" => "Pruebas básicas"
     ]
     
 ];

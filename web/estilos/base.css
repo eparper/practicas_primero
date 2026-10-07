@@ -31,6 +31,11 @@ body {
     
 }
 
+#barraUbicacion {
+    background-color: #BED4D6;
+    
+}
+
 .boton{
     background-color: blue;
     color:white;
@@ -133,9 +138,7 @@ header, #barraMenu, #barraLogin {
     text-align: center;
 }
 
-#barraUbicacion {
-    background-color: #BED4D6;
-}
+
 
 /* Menú superior personalizado */
 /* #menuPrincipal {
