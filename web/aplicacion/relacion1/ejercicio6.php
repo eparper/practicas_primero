@@ -30,7 +30,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("Ejercicio 6", $barraUbicacion);
-cuerpo();  //llamo a la vista
+cuerpo($vector);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -43,7 +43,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo()
+function cuerpo($vector)
 {
 ?>
     <br><br>
@@ -59,6 +59,18 @@ function cuerpo()
     </p>
 <?php
 
+    echo "<br>Simular foreach con funciones de recorrido:<br>";
 
+    //cuando la clave del array sea null es que ha terminado el array
+    while(key($vector)!= null){ 
+
+        echo "Índice: " . key($vector) . " valor: " . current($vector)."<br />";  //mostramos el elemento
+        next($vector); //avanzamos el puntero para en la próxima vuelta se muestre el siguiente
+    } 
+
+    echo "<br>Simular foreach con funciones array_keys y array_values:<br>";
+    for ($cont = 0; $cont < count($vector); $cont++) {
+        echo "Índice: " . array_keys($vector)[$cont] . " valor: " . array_values($vector)[$cont] ."<br />";
+    }
 
 }
