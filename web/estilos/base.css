@@ -119,10 +119,16 @@ body {
     
 }
 
+#barraMenu ul li a {
+    text-decoration: none;
+    color: black;
+}
+
 #barraMenu ul li:hover {
     padding: 1%;
     list-style: none;
-    background-color: #8080ff;
+    background-color: #4C5D7D;
+    
     
 }
 
