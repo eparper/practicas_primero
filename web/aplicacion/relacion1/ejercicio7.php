@@ -48,17 +48,33 @@ function cuerpo()
         controlador) 
     </p>
 <?php
-
+    //************************** */
     echo "<br>Con las funciones para gestión de fechas:<br>";
 
     echo "- Mostrar la fecha actual en el formato “d/m/Y”<br>";
     setlocale(LC_TIME, "esp_esp","es_ES");
     $diaActual = date("d/m/Y");
-    $diaActualEsp = $diaActual.date_default_timezone_set("Europe/Madrid");
+    
+    echo $diaActual;
+    //************************** */
 
     echo "<br>- Mostrar la fecha actual en el formato “dia d, mes mmmm, año yyyy, dia de la semana dd”.<br>";
-    
-    $diaActualPasadoATime = strtotime($diaActualEsp);
-    echo "" . strftime("%A, %d de %B de %Y");
+    //para que no aparezca el mensaje de error en la web en la cabecera ponemos en la línea 12: 
+    //error_reporting(E_ALL & ~E_DEPRECATED); 
+
+    //sacamos mes
+    $diaSemana1a7 = strftime("%u");
+    $arraySemana = [
+        1 => "Lunes",
+        2 => "Martes",
+        3 => "Miércoles",
+        4 => "Jueves",
+        5 => "Viernes",
+        6 => "Sábado",
+        7 => "Domingo"
+    ];
+
+
+    echo strftime("Día %d, mes %B, año %Y, día de la semana %A");
     
 }

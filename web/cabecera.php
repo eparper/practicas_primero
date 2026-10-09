@@ -9,7 +9,7 @@ define("MODO_TRABAJO","desarrollo"); //en "produccion o en desarrollo
 if (MODO_TRABAJO=="produccion")
     error_reporting(0);
     else 
-        error_reporting(E_ALL);  
+        error_reporting(E_ALL & ~E_DEPRECATED);  
 
 spl_autoload_register(function ($clase){
     $ruta=RUTABASE."/scripts/clases/";
