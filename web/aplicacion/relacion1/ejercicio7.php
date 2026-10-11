@@ -49,7 +49,7 @@ function cuerpo()
     </p>
 <?php
     //************************** */
-    echo "<br>Con las funciones para gestión de fechas:<br>";
+    echo "<br><h3>Con las funciones para gestión de fechas:</h3>";
 
     echo "- Mostrar la fecha actual en el formato “d/m/Y”<br>";
     setlocale(LC_TIME, "esp_esp","es_ES");
@@ -63,15 +63,16 @@ function cuerpo()
     //error_reporting(E_ALL & ~E_DEPRECATED); 
 
     //sacamos dia semana
-    $diaSemana1a7 = date("w");
+    $diaSemana1a7 = date("w"); //aquí te devuelve de 0 (Domingo) a 6 (sábado)
     $arraySemana = [
+        0 => "Domingo",
         1 => "Lunes",
         2 => "Martes",
         3 => "Miércoles",
         4 => "Jueves",
         5 => "Viernes",
-        6 => "Sábado",
-        7 => "Domingo"
+        6 => "Sábado"
+        
     ];
 
     $diaHoyConLetras = $arraySemana[$diaSemana1a7];
@@ -122,14 +123,92 @@ function cuerpo()
 
     echo date("d/m/Y H:i:s", $diaHoraActual) . "<br><br>";
 
-    echo "Día " . strftime("%e", $diaHoraActual) . ", mes " . $arrayMes[date("n", $diaHoraActual)] . 
-            ", año " . strftime("%Y", $diaHoraActual) . ", día de la semana " . 
-            $arraySemana[strftime("%u", $diaHoraActual)] . ", hora " . strftime("%H", $diaHoraActual) . 
-            ", minuto " . strftime("%S", $diaHoraActual) . "<br><br>";
+    echo "Día " . date("d", $diaHoraActual) . ", mes " . $arrayMes[date("n", $diaHoraActual)] . 
+            ", año " . date("Y", $diaHoraActual) . ", día de la semana " . 
+            $arraySemana[date("w", $diaHoraActual)] . ", hora " . date("H", $diaHoraActual) . 
+            ", minuto " . date("s", $diaHoraActual) . "<br><br>";
 
     echo date("H:i:s", $diaHoraActual);
 
 
     //************CON LA CLASE DATETIME************** */
+    echo "<br><br><h3>Con la clase DateTime:<br></h3>";
+
+    echo "- Mostrar la fecha actual en el formato “d/m/Y”<br>";
+    $diaActual = new DateTime();
     
+    echo $diaActual->format("d/m/Y") . "<br>";
+    //************************** */
+
+    echo "<br>- Mostrar la fecha actual en el formato “dia d, mes mmmm, año yyyy, dia de la semana dd”.<br>";
+    //para que no aparezca el mensaje de error en la web en la cabecera ponemos en la línea 12: 
+    //error_reporting(E_ALL & ~E_DEPRECATED); 
+
+    //sacamos dia semana
+    $diaSemana1a7 = $diaActual->format("w"); //aquí te devuelve de 0 (Domingo) a 6 (sábado)
+    $arraySemana = [
+        0 => "Domingo",
+        1 => "Lunes",
+        2 => "Martes",
+        3 => "Miércoles",
+        4 => "Jueves",
+        5 => "Viernes",
+        6 => "Sábado"
+        
+    ];
+
+    $diaHoyConLetras = $arraySemana[$diaSemana1a7];
+
+    //sacamos mes
+    $mes1a12 = $diaActual->format("m");
+    $arrayMes = [
+        1 => "Enero",
+        2 => "Febrero",
+        3 => "Marzo",
+        4 => "Abril",
+        5 => "Mayo",
+        6 => "Junio",
+        7 => "Julio",
+        8 => "Agosto",
+        9 => "Septiembre",
+        10 => "Octubre",
+        11 => "Noviembre",
+        12 => "Diciembre"
+    ];
+
+    $mesHoyConLetras = $arrayMes[$mes1a12];
+
+    echo "Día " . $diaActual->format("d") . ", mes " . $mesHoyConLetras . ", año " . $diaActual->format("Y") . ", día de la semana " . $diaHoyConLetras;
+    //************************** */
+    echo "<br><br>- Mostrar la hora actual en el formato “hh:mm:ss” <br>"; //nos muestra otra hora 
+                                                                //porque el servidor tiene esa hora
+    
+    echo $diaActual->format("H:i:s");
+    //************************** */
+    echo "<br><br>- Mostrar los tres apartados anteriores para la fecha 29/3/2024 a 12:45.<br>";
+    $fechaHoraDada = new DateTime("29-3-2026 12:45"); //con guiones no da tantos fallos
+    echo $fechaHoraDada->format("d/m/Y H:i") . "<br><br>";
+
+    echo "Día " . $fechaHoraDada->format("d") . ", mes " . $arrayMes[$fechaHoraDada->format("n")] . 
+            ", año " . $fechaHoraDada->format("Y") . ", día de la semana " . 
+            $arraySemana[$fechaHoraDada->format("w")] . ", hora " . $fechaHoraDada->format("H") . 
+            ", minuto " . $fechaHoraDada->format("i") . "<br><br>";
+
+    echo $fechaHoraDada->format("H:i:s");
+
+    //************************** */
+    echo "<br><br>- Mostrar los tres apartados anteriores para la fecha actual menos 12 días y 4 horas  <br>";
+
+    $diaActualMenosFecha = $diaActual -> sub(new DateInterval("P12DT4H0M"));
+
+    echo $diaActualMenosFecha -> format("d/m/Y H:i:s") . "<br><br>";
+
+    echo "Día " . $diaActualMenosFecha -> format("d") . ", mes " . 
+            $arrayMes[$diaActualMenosFecha -> format("n")] . 
+            ", año " . $diaActualMenosFecha -> format("Y") . ", día de la semana " . 
+            $arraySemana[$diaActualMenosFecha -> format("w")] . ", hora " 
+            . $diaActualMenosFecha -> format("H") . 
+            ", minuto " . $diaActualMenosFecha -> format("i") . "<br><br>";
+
+    echo $diaActualMenosFecha -> format("H:i:s");
 }
