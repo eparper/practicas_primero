@@ -48,7 +48,7 @@ function finCabecera()
 <?php   
 }
 
-function inicioCuerpo($cabecera)
+function inicioCuerpo(string $cabecera, array $barraUbicacion = [])
 {
     global $acceso;
 
@@ -66,10 +66,62 @@ function inicioCuerpo($cabecera)
             <div id="barraMenu">
                 <ul>
                     <li><a href="/index.php">Inicio</a></li>
+                    <li><a href="/aplicacion/pruebas/index.php">Ejemplos Básicos</a></li>
+                    <li><a href="/aplicacion/relacion1/index.php">Relación 1</a></li>
                  </ul> 
                 
             </div>
-            
+            <div id="barraUbicacion">
+                
+                <?php
+                    //esta opción no es eficiente, habría que repetir código
+                    // for ($cont = 0; $cont < count($barraUbicacion); $cont++) {
+                        ?>
+                        <?php 
+                        //si es la última posición muestra solo el nombre sin enlace:
+                            // if ($barraUbicacion[$cont] == $barraUbicacion[count($barraUbicacion) - 1]) {
+                            //     echo $barraUbicacion[$cont]["nombre"];
+                            // }
+                            // else { ?>
+                                <!-- <a href=" --><?php //echo $barraUbicacion[$cont]["url"];?><!--">--><?php //echo $barraUbicacion[$cont]["nombre"];?></a><?php
+                            //}
+                        ?>
+                        
+                        <?php
+                    //}
+
+                    //opción Vicente, se pueden poner más opciones de esta manera
+                    foreach ($barraUbicacion as $elemento) {
+                        ?>
+                        <?php 
+                        //
+                            if (isset($elemento["url"])) {
+                                echo "<a href = '{$elemento["url"]}' >";
+                            }
+                            echo $elemento["nombre"];
+
+                            if (isset($elemento["url"])) {
+                                echo "</a>";
+                            }
+
+                            //se pueden poner más opciones
+                            if (isset($elemento["adicional"])) {
+                                echo $elemento["adicional"];
+                                
+                            }
+                            else {
+                                echo "&nbsp;&nbsp;";
+                            }
+                
+                            
+                        ?>
+                        
+                        <?php
+                    }
+                ?>
+
+
+            </div>
             <div>
 <?php   
 }
@@ -83,7 +135,7 @@ function finCuerpo()
             <footer>
                 <hr width="90%"  />  
                 <div>
-                    &copy; Copyright  by Profesor
+                    Noemí Parejo
                 </div>
             </footer>
         </div>
@@ -91,3 +143,5 @@ function finCuerpo()
 </html>
 <?php
 }
+
+
