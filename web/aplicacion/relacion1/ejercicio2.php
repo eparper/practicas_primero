@@ -28,6 +28,8 @@ $arrayDatosTiradas = [
     "contCara6" => 0
 ];
 
+//corregir: $arrayDatosTiradas = array_fill(1,6,0);
+
 //array que le paso a la función cuerpo con todas las variables necesarias:
 $arrayParams = [
     "N_LANZAMIENTOS" => $N_LANZAMIENTOS,
