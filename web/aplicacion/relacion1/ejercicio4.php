@@ -6,7 +6,6 @@ $barraUbicacion = [
     [
         "nombre" => "Inicio",
         "url" => "/index.php",
-        "adicional" => "hola"
     ],
     [
         "nombre" => "Relación 1",

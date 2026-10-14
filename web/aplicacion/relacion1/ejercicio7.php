@@ -199,7 +199,7 @@ function cuerpo()
     //************************** */
     echo "<br><br>- Mostrar los tres apartados anteriores para la fecha actual menos 12 días y 4 horas  <br>";
 
-    $diaActualMenosFecha = $diaActual -> sub(new DateInterval("P12DT4H0M"));
+    $diaActualMenosFecha = $diaActual -> sub(new DateInterval("P12DT4H"));
 
     echo $diaActualMenosFecha -> format("d/m/Y H:i:s") . "<br><br>";
 

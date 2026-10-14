@@ -73,6 +73,7 @@ function cuerpo($vector)
 
     foreach ($vector as $posicion => $valor) {
 
+        //TODO ESTO PODRÍA SER UN SWITCH
         //SI ES UN ARRAY
         if (gettype($valor) == "array") {
 

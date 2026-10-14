@@ -72,13 +72,16 @@ function cuerpo($arrayParams)
 
         for ($cont = 1; $cont <= 6; $cont++) {
             $dado = mt_rand(1, 6);
-            echo "Lanzamiento " . $cont . " del dado: " . $dado . "<br>";
+            echo "Lanzamiento " . $cont . " del dado: " . $dado . "<br>".PHP_EOL;
         }
 
-        $contWhile = 0;
-        
 
+
+        $contWhile = 0;
+                
         while ($contWhile != $arrayParams["N_LANZAMIENTOS"]) {
+
+            //el switch se puede quitar
 
             //al hacer el resto de cualquier número que salga en mt_rand() entre el número de caras que tiene
             //un dado (6), salen números del 0 al 5, entonces por eso le sumamos 1
@@ -106,24 +109,24 @@ function cuerpo($arrayParams)
             $contWhile++;
         }
 
-        echo "<br>Lanzado el dado " . $arrayParams["N_LANZAMIENTOS"] . " veces<br>";
+        echo "<br>Lanzado el dado " . $arrayParams["N_LANZAMIENTOS"] . " veces<br>".PHP_EOL;
         echo "El 1 ha salido " . $arrayParams["arrayDatosTiradas"]["contCara1"] . " con un porcentaje de " . 
-            (($arrayParams["arrayDatosTiradas"]["contCara1"] / 1000) * 100) . "%<br>";
+            (($arrayParams["arrayDatosTiradas"]["contCara1"] / 1000) * 100) . "%<br>".PHP_EOL;
         
         echo "El 2 ha salido " . $arrayParams["arrayDatosTiradas"]["contCara2"] . " con un porcentaje de " . 
-            (($arrayParams["arrayDatosTiradas"]["contCara2"] / 1000) * 100) . "%<br>";
+            (($arrayParams["arrayDatosTiradas"]["contCara2"] / 1000) * 100) . "%<br>".PHP_EOL;
 
         echo "El 3 ha salido " . $arrayParams["arrayDatosTiradas"]["contCara3"] . " con un porcentaje de " . 
-            (($arrayParams["arrayDatosTiradas"]["contCara3"] / 1000) * 100) . "%<br>";
+            (($arrayParams["arrayDatosTiradas"]["contCara3"] / 1000) * 100) . "%<br>".PHP_EOL;
 
         echo "El 4 ha salido " . $arrayParams["arrayDatosTiradas"]["contCara4"] . " con un porcentaje de " . 
-            (($arrayParams["arrayDatosTiradas"]["contCara4"] / 1000) * 100) . "%<br>";
+            (($arrayParams["arrayDatosTiradas"]["contCara4"] / 1000) * 100) . "%<br>".PHP_EOL;
 
         echo "El 5 ha salido " . $arrayParams["arrayDatosTiradas"]["contCara5"] . " con un porcentaje de " . 
-            (($arrayParams["arrayDatosTiradas"]["contCara5"] / 1000) * 100) . "%<br>";
+            (($arrayParams["arrayDatosTiradas"]["contCara5"] / 1000) * 100) . "%<br>".PHP_EOL;
             
         echo "El 6 ha salido " . $arrayParams["arrayDatosTiradas"]["contCara6"] . " con un porcentaje de " . 
-        (($arrayParams["arrayDatosTiradas"]["contCara6"] / 1000) * 100) . "%<br>";
+        (($arrayParams["arrayDatosTiradas"]["contCara6"] / 1000) * 100) . "%<br>".PHP_EOL;
     ?>
 <?php
 }

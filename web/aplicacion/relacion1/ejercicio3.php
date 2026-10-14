@@ -109,7 +109,7 @@ function cuerpo($array, $arraySolaSentencia, $arraySolaSentenciaCor)
 
     foreach($array as $clave => $valor) {
 
-        if (gettype($valor) == "array") {
+        if (gettype($valor) == "array") { //también sirve is_array()
 
             echo "array[" . $clave . "] = array(";
 
