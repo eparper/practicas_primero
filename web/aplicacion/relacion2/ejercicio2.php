@@ -19,11 +19,14 @@ $barraUbicacion = [
 ];
 
 //*************************EJERCICIO 2****************************
+$cadena = "Está la niña en casa";
+
+
 
 
 //array que le paso a la función cuerpo con todas las variables necesarias:
 $arrayParams = [
-    
+    "cadena" => $cadena
 ];
 
 //dibuja la plantilla de la vista
@@ -91,6 +94,71 @@ function cuerpo($arrayParams)
 
 
 <?php
-            
+        
+    $cadenaEspacios = "";
+
+
+    //con mb_substr
+    for ($cont = 0; $cont < mb_strlen($arrayParams["cadena"]); $cont++) {
+
+        
+
+        $caracter = mb_substr($arrayParams["cadena"], $cont, 1);
+
+        if ($cont !== 0)
+            $cadenaEspacios .= "&nbsp;";
+
+        echo $cadenaEspacios . $caracter . "<br>";
+        
+    }
+
+    //con substr NO VÁLIDA
+
+    // $cadenaEspacios = "";
+
+    // for ($cont = 0; $cont < mb_strlen($arrayParams["cadena"]); $cont++) {
+
+        
+
+    //     $caracter = substr($arrayParams["cadena"], $cont, 1);
+
+    //     if ($cont !== 0)
+    //         $cadenaEspacios .= "&nbsp;";
+
+    //     echo $cadenaEspacios . $caracter . "<br>";
+        
+    // }
+
+
+    //con [] NO VÁLIDO
+    // $cadenaEspacios = "";
+
+    // for ($cont = 0; $cont < strlen($arrayParams["cadena"]); $cont++) {
+
+        
+
+    //     $caracter = $arrayParams["cadena"][$cont];
+
+    //     if ($cont !== 0)
+    //         $cadenaEspacios .= "&nbsp;";
+
+    //     echo $cadenaEspacios . $caracter . "<br>";
+        
+    // }
+
+    //mostrar cadena en orden inverso
+
+    for ($cont = 0; $cont < mb_strlen($arrayParams["cadena"]); $cont++) {
+
+        
+
+        $caracter = mb_substr($arrayParams["cadena"], mb_strlen($arrayParams["cadena"]), 1);
+
+        if ($cont !== 0)
+            $cadenaEspacios .= "&nbsp;";
+
+        echo $cadenaEspacios . $caracter . "<br>";
+        
+    }
 
 }
