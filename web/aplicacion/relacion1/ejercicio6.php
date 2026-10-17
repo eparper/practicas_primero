@@ -61,6 +61,8 @@ function cuerpo($vector)
 
     echo "<br>Simular foreach con funciones de recorrido:<br>";
 
+    //por si queremos usar el array de nuevo y poner el puntero en el principio
+    reset($vector);
     //cuando la clave del array sea null es que ha terminado el array
     while(key($vector)!= null){ 
 
