@@ -148,17 +148,57 @@ function cuerpo($arrayParams)
 
     //mostrar cadena en orden inverso
 
-    for ($cont = 0; $cont < mb_strlen($arrayParams["cadena"]); $cont++) {
+    $cadenaEspacios = "";
+    $caracter = "";
 
-        
+    for ($cont = mb_strlen($arrayParams["cadena"]); $cont >= 0; $cont--) {
 
-        $caracter = mb_substr($arrayParams["cadena"], mb_strlen($arrayParams["cadena"]), 1);
+        $caracterParParaUsuario = mb_substr($arrayParams["cadena"], $cont, 1);
 
         if ($cont !== 0)
             $cadenaEspacios .= "&nbsp;";
 
-        echo $cadenaEspacios . $caracter . "<br>";
+        //caracteres pares en mayúsculas:
+        if ($cont % 2 == 0)
+            $caracterFinal = mb_strtoupper($caracterParParaUsuario);
+        else 
+            $caracterFinal = mb_substr($arrayParams["cadena"], $cont, 1);
+
+        echo $cadenaEspacios . $caracterFinal . "<br>";
         
     }
+
+
+    //separar la cadena por el caracter a:
+    $cadenaEspacios = "";
+
+    
+    $partesPorA = mb_split("a", $arrayParams["cadena"]);
+
+    for ($cont = 0; $cont < count($partesPorA); $cont++) {
+        echo $partesPorA[$cont] . " <br>";
+    }
+
+    //Localiza en la cadena la palabra niña y cambia el siguiente 
+    //carácter a niña (el espacio en blanco) por "/mujer " 
+
+    $cadena = "niña";
+    $cadenaSus = "/mujer ";
+
+    $cadenaEntera = $arrayParams["cadena"];
+
+    $posStart = mb_strpos($cadenaEntera, $cadena);
+
+
+    $tamanioCadena = mb_strlen($cadena);
+
+    $posEspacio = $posStart + $tamanioCadena;
+
+    $nuevaCadena = mb_substr($cadenaEntera, 0, $posEspacio)
+                    . $cadenaSus .
+                    mb_substr($cadenaEntera, $posEspacio + 1, mb_strlen($cadenaEntera));
+
+
+    echo $nuevaCadena;
 
 }
