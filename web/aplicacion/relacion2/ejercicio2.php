@@ -19,21 +19,37 @@ $barraUbicacion = [
 ];
 
 //*************************EJERCICIO 2****************************
-$cadena = "Está la niña en casa";
+$cadenaEntera = "Está la niña en casa";
+
+//Localiza en la cadena la palabra niña y cambia el siguiente 
+    //carácter a niña (el espacio en blanco) por "/mujer " 
+
+$cadena = "niña";
+$cadenaSus = "/mujer ";
+
+$posStart = mb_strpos($cadenaEntera, $cadena);
 
 
+$tamanioCadena = mb_strlen($cadena);
+
+$posEspacio = $posStart + $tamanioCadena;
+
+$nuevaCadena = mb_substr($cadenaEntera, 0, $posEspacio)
+                . $cadenaSus .
+                mb_substr($cadenaEntera, $posEspacio + 1, mb_strlen($cadenaEntera));
 
 
 //array que le paso a la función cuerpo con todas las variables necesarias:
 $arrayParams = [
-    "cadena" => $cadena
+    "cadena" => $cadenaEntera,
+    "nuevaCadena" => $nuevaCadena
 ];
 
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
-inicioCuerpo("Ejercicio 1", $barraUbicacion);
+inicioCuerpo("Ejercicio 2", $barraUbicacion);
 cuerpo($arrayParams);  //llamo a la vista
 finCuerpo();
 // **********************************************************
@@ -179,26 +195,9 @@ function cuerpo($arrayParams)
         echo $partesPorA[$cont] . " <br>";
     }
 
-    //Localiza en la cadena la palabra niña y cambia el siguiente 
-    //carácter a niña (el espacio en blanco) por "/mujer " 
-
-    $cadena = "niña";
-    $cadenaSus = "/mujer ";
-
-    $cadenaEntera = $arrayParams["cadena"];
-
-    $posStart = mb_strpos($cadenaEntera, $cadena);
+    
 
 
-    $tamanioCadena = mb_strlen($cadena);
-
-    $posEspacio = $posStart + $tamanioCadena;
-
-    $nuevaCadena = mb_substr($cadenaEntera, 0, $posEspacio)
-                    . $cadenaSus .
-                    mb_substr($cadenaEntera, $posEspacio + 1, mb_strlen($cadenaEntera));
-
-
-    echo $nuevaCadena;
+    echo $arrayParams["nuevaCadena"];
 
 }
