@@ -59,6 +59,7 @@ function cabecera()
 {
     ?>
     <!-- ESTO VA EN EL HEAD -->
+    
     <?php
 }
 
