@@ -83,6 +83,6 @@ function cuerpo()
 
     //cuantificado, como hacer perezoso
     $cadena = "/* primer comentario */ no comentado /* segundo comentario */";
-    $exp = "//\*.*?\*//";
+    $exp = "/[/]\*.*?\*//";
 
 }
