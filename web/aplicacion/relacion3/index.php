@@ -41,6 +41,6 @@ function cuerpo()
 
 <?php
 
-    cuentaVeces();
+    cuentaVeces(1);
 
 }
