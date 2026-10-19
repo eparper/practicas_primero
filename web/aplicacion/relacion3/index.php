@@ -15,12 +15,28 @@ $barraUbicacion = [
     
 ];
 
+//-------------------------
+$array = [];
+
+$cad = "hola";
+
+$numero1 = 7;
+
+$numero2 = 0;
+
+cuentaVeces($array, $cad, $numero1, $numero2);
+
+
+
+
+//-------------------------
+
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 3", $barraUbicacion);
-cuerpo();  //llamo a la vista
+cuerpo($array, $cad, $numero1, $numero2);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -33,7 +49,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo()
+function cuerpo(array $a, string $c, int $n1, int $n2)
 {
 ?>
     <br><br>
@@ -41,6 +57,6 @@ function cuerpo()
 
 <?php
 
-    cuentaVeces(1);
+    
 
 }
