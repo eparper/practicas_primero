@@ -33,15 +33,18 @@ $resultado3 = [];
 
 //expresiones regulares
 $expEtiqueta = "/<\/?[a-z0-9]+\/?>/";
+$expVicente1 = "/<.+?>/";
 
 preg_match_all($expEtiqueta, $cadena, $resultado, PREG_OFFSET_CAPTURE); 
 
 
 $expNumero = "/\d+\.\d+|\d+/";
+$expVicente2 = "/\d+(\.\d+)?/";
 
 preg_match_all($expNumero, $cadena, $resultado2, PREG_OFFSET_CAPTURE); 
 
 $expEmail = "/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/";
+$expVicente3 = "/[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}/";
 
 preg_match_all($expEmail, $cadena, $resultado3, PREG_OFFSET_CAPTURE); 
 
@@ -121,6 +124,11 @@ function cuerpo($cadena, $resultado, $resultado2, $resultado3)
             
         }
     }
+
+    //otra forma (corrección de Vicente): 
+    // foreach ($emails[0] as $email) {
+    //     echo "<li>Posición: $email[1]: $email[0]</li>".PHP_EOL;
+    // }
 
 
     
