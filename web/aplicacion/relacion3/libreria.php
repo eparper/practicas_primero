@@ -37,7 +37,12 @@ function cuentaVeces(array &$arrayParam, string $cadena, int $num1, int &$num2) 
 }
 
 
-
+/**
+ * Undocumented function
+ *
+ * @param integer $num
+ * @return string|boolean
+ */
 function generarCadena(int $num = 10) : string|bool {
 
     $resultado = false;
