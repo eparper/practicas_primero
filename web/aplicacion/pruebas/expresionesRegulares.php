@@ -46,6 +46,9 @@ function cuerpo()
 
     $resultado = [];
 
+    //devuelve 1 si el patrón coincide con la cadena de texto
+    //devuelve 0 si el patrón NO coincide con la cadena de texto
+    //devuelve false si ocurre algún error como por ejemplo que esté mal la expReg
     preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
 
     //***************************************************** */

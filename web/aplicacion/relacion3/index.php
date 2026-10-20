@@ -16,6 +16,7 @@ $barraUbicacion = [
 ];
 
 //-------------------------
+//-------------Ejercicio 1------------------
 $array = [];
 
 $cad = "hola";
@@ -26,8 +27,16 @@ $numero2 = 0;
 
 cuentaVeces($array, $cad, $numero1, $numero2);
 
+//-------------Ejercicio 2------------------
+$cad2 = generarCadena(); //con 10 caracteres
+$cad3 = generarCadena(5); // con 5 caracteres
+$cad4 = generarCadena(-5); //debe dar error
 
-
+$ejercicio2 = [
+    "cad2" => $cad2,
+    "cad3" => $cad3,
+    "cad4" => $cad4
+];
 
 //-------------------------
 
@@ -36,7 +45,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 3", $barraUbicacion);
-cuerpo($array, $cad, $numero1, $numero2);  //llamo a la vista
+cuerpo($array, $cad, $numero1, $numero2, $ejercicio2);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -49,7 +58,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(array $a, string $c, int $n1, int $n2)
+function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2)
 {
 ?>
     <br><br>
@@ -57,6 +66,36 @@ function cuerpo(array $a, string $c, int $n1, int $n2)
 
 <?php
 
+
+    echo "Ejercicio 1: <br>".PHP_EOL;
+    echo "Llamada número: " . $n2 . "<br>".PHP_EOL;
+
+
+    cuentaVeces($a, "2daw", 3, $n2);
+    echo "Llamada número: " . $n2 . "<br>".PHP_EOL;
+
+
+    cuentaVeces($a, "daw1", 35, $n2);
+    echo "Llamada número: " . $n2 . "<br>".PHP_EOL;
+
+    cuentaVeces($a, "hasta luego", 3, $n2);
+    echo "Llamada número: " . $n2 . "<br>".PHP_EOL;
+
+    echo "Array: <br>".PHP_EOL;
+
+    foreach ($a as $clave => $valor) {
+        echo "Posición: " . $clave . ". Valor: " . $valor . "<br>";
+
+        
+    }
+
+    echo "<br><br>".PHP_EOL;
+
+    echo "Ejercicio 2: <br>".PHP_EOL;
+    
+    echo (generarCadena() == false?"Da error": generarCadena()) . " <br>"; //con 10 caracteres
+    echo (generarCadena(5) == false?"Da error": generarCadena(5)) . " <br>"; // con 5 caracteres
+    echo (generarCadena(-5) == false?"Da error": generarCadena(-5)); //debe dar error
     
 
 }
