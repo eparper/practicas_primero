@@ -27,6 +27,8 @@ $numero2 = 0;
 
 cuentaVeces($array, $cad, $numero1, $numero2);
 
+$suma = 5;
+
 //-------------Ejercicio 2------------------
 $cad2 = generarCadena(); //con 10 caracteres
 $cad3 = generarCadena(5); // con 5 caracteres
@@ -45,7 +47,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 3", $barraUbicacion);
-cuerpo($array, $cad, $numero1, $numero2, $ejercicio2);  //llamo a la vista
+cuerpo($array, $cad, $numero1, $numero2, $ejercicio2, $suma);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -58,7 +60,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2)
+function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
 {
 ?>
     <br><br>
@@ -99,10 +101,25 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2)
     
     echo "<br><br>".PHP_EOL;
 
-    echo "Ejercicio 2: <br>".PHP_EOL;
+    echo "Ejercicio 3: <br>".PHP_EOL;
 
     echo operaciones(1,2,5,7,3,4)."<br>".PHP_EOL; //sumará todos los operandos
     echo operaciones(5,2,5,7,3,4)."<br>".PHP_EOL; //sumará pares e impares y restará a pares - impares
 
 
+    echo "<br><br>".PHP_EOL;
+
+    echo "Ejercicio 4: <br>".PHP_EOL;
+
+    
+    echo "Resultado: " . devuelve($sum, 7, 20) . ". Suma: $sum <br>".PHP_EOL; //indicando los tres parámetros
+    $sum = 1;
+    echo "Resultado: " . devuelve($sum) . ". Suma: $sum <br>".PHP_EOL; //indicando el primer parámetro
+    $sum = 1;
+    echo "Resultado: " . devuelve($sum, 7) . ". Suma: $sum <br>".PHP_EOL; //indicando el primer y segundo parámetro
+    $sum = 1;
+    //cuando se ponga el nombre del parámetro, ya se ponen a todos los que queden
+    echo "Resultado: " . devuelve($sum, n3: 20) . ". Suma: $sum <br>".PHP_EOL;
+
+    
 }

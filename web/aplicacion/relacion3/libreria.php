@@ -147,3 +147,24 @@ function operaciones(int $tipoOP, int $operando1, int $operando2, int ...$resto)
     }
     return $resultado;
 }
+
+/**
+ * Undocumented function
+ *
+ * @param integer $n1
+ * @param integer $n2
+ * @param integer $n3
+ * @return integer
+ */
+function devuelve(int &$n1, int $n2 = 5, int $n3 = 10) : int {
+
+    $suma = $n1 + $n2 + $n3;
+
+    //guardamos n1 en una variable auxiliar para no perder el valor
+    $aux = $n1;
+
+    $n1 = $suma;
+
+    return $aux * $n2 * $n3;
+
+}
