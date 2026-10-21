@@ -93,9 +93,16 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2)
 
     echo "Ejercicio 2: <br>".PHP_EOL;
     
-    echo (generarCadena() == false?"Da error": generarCadena()) . " <br>"; //con 10 caracteres
-    echo (generarCadena(5) == false?"Da error": generarCadena(5)) . " <br>"; // con 5 caracteres
-    echo (generarCadena(-5) == false?"Da error": generarCadena(-5)); //debe dar error
+    echo (generarCadena() == false?"Da error": generarCadena()) . " <br>".PHP_EOL; //con 10 caracteres
+    echo (generarCadena(5) == false?"Da error": generarCadena(5)) . " <br>".PHP_EOL; // con 5 caracteres
+    echo (generarCadena(-5) == false?"Da error": generarCadena(-5)) . " <br>".PHP_EOL; //debe dar error
     
+    echo "<br><br>".PHP_EOL;
+
+    echo "Ejercicio 2: <br>".PHP_EOL;
+
+    echo operaciones(1,2,5,7,3,4)."<br>".PHP_EOL; //sumará todos los operandos
+    echo operaciones(5,2,5,7,3,4)."<br>".PHP_EOL; //sumará pares e impares y restará a pares - impares
+
 
 }

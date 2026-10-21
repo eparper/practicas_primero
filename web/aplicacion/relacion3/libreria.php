@@ -43,7 +43,7 @@ function cuentaVeces(array &$arrayParam, string $cadena, int $num1, int &$num2) 
  * @param integer $num
  * @return string|boolean
  */
-function generarCadena(int $num = 10) : string|bool {
+function generarCadena(int $num = 10) : string|false {
 
     $resultado = false;
     $cadena = "";
@@ -81,3 +81,69 @@ function generarCadena(int $num = 10) : string|bool {
 }
 
 
+/**
+ * Undocumented function
+ *
+ * @param integer $tipoOP
+ * @param integer $operando1
+ * @param integer $operando2
+ * @param integer ...$resto
+ * @return integer
+ */
+function operaciones(int $tipoOP, int $operando1, int $operando2, int ...$resto) : int {
+
+    $resultado = 0;
+    $sumaPares = 0;
+    $sumaImpares = 0;
+
+    switch ($tipoOP) {
+        case 1: {
+
+            $resultado = $operando1 + $operando2;
+
+            foreach ($resto as $elem) {
+                $resultado += $elem;
+            }
+
+        } break;
+        case 2: {
+
+            $resultado = $operando1 - $operando2;
+
+            foreach ($resto as $elem) {
+                $resultado -= $elem;
+            }
+
+        } break;
+        case 3: {
+
+            $resultado = $operando1 * $operando2;
+
+            foreach ($resto as $elem) {
+                $resultado *= $elem;
+            }
+
+        } break;
+        default: {
+
+            $sumaPares = $operando2;
+            $sumaImpares = $operando1;
+
+            for ($cont = 0; $cont < count($resto); $cont++) {
+
+                //estos son los impares para el usuario:
+                if ($cont % 2 == 0) {
+                    $sumaImpares += $resto[$cont];
+                }
+                else {
+                    //y aquí entran los pares
+                    $sumaPares += $resto[$cont];
+                }
+            }
+
+            $resultado = $sumaPares - $sumaImpares;
+
+        }
+    }
+    return $resultado;
+}
