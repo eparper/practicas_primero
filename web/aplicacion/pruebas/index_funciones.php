@@ -69,6 +69,34 @@ $otra = "suma";
 
 $numero = $otra(1,2,3,4); //se llama a la función suma mediante una variable
 
+//función anónima
+$func = function (float $a, float $b, float ...$resto): float
+{
+   $res = $a + $b;
+
+   foreach ($resto as $num)
+      $res += $num;
+
+   return $res;
+};
+
+
+
+$numero = $func(1,2,3,4); //se llama a la función con la variable $func que tiene una función dentro
+
+
+//otro ejemplo
+$s = function (int $a, int $b) {
+    return $a + $b;
+};
+
+$numero = $s(5, 20);
+
+$s = fn(int $a, int $b) => $a + $b + $numero;
+
+//esto sería 72, se queda con el valor de $numero que tenía al momento de definir la función
+$numero = $s(29, 20);
+
 //controlador
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
