@@ -121,5 +121,52 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
     //cuando se ponga el nombre del parámetro, ya se ponen a todos los que queden
     echo "Resultado: " . devuelve($sum, n3: 20) . ". Suma: $sum <br>".PHP_EOL;
 
-    
+    echo "<br><br>".PHP_EOL;
+
+    echo "Ejercicio 5: <br>".PHP_EOL;
+
+    echo ((hacerOperacion("resta", 3, 1))?hacerOperacion("resta", 3, 1):"Error")."<br>".PHP_EOL;
+    echo ((hacerOperacion("suma", 3, 1))?hacerOperacion("suma", 3, 1):"Error")."<br>".PHP_EOL;
+    echo ((hacerOperacion("multiplicacion", 3, 1))?hacerOperacion("multiplicacion", 3, 1):"Error")."<br>".PHP_EOL;
+    echo ((hacerOperacion("nada", 3, 1))?hacerOperacion("nada", 3, 1):"Error")."<br>".PHP_EOL;
+
+    echo "<br><br>".PHP_EOL;
+
+    echo "Ejercicio 6: <br>".PHP_EOL;
+    echo llamadaAFuncion(2, 5, fn($a,$b)=>$a+$b)."<br>".PHP_EOL;
+
+    echo llamadaAFuncion(2, 5, fn($a,$b)=>$a-$b)."<br>".PHP_EOL;
+
+    echo llamadaAFuncion(2, 5, fn($a,$b)=>$a*$b)."<br>".PHP_EOL;
+
+    echo llamadaAFuncion(2, 5, fn($a,$b)=>"Param1: " . $a . ". Param2: " . $b)."<br>".PHP_EOL;
+
+    echo "<br><br>".PHP_EOL;
+
+    echo "Con funciones anónimas: <br>".PHP_EOL;
+
+    $funcSuma = function ($a, $b) {
+        return $a + $b;
+    };
+
+    $funcResta = function ($a, $b) {
+        return $a - $b;
+    };
+
+    $funcMultiplicacion = function ($a, $b) {
+        return $a * $b;
+    };
+
+    $funcMuestraParams = function ($a, $b) {
+        return "Param1: " . $a . ". Param2: " . $b;
+    };
+
+    echo llamadaAFuncion(2, 5, $funcSuma)."<br>".PHP_EOL;
+
+    echo llamadaAFuncion(2, 5, $funcResta)."<br>".PHP_EOL;
+
+    echo llamadaAFuncion(2, 5, $funcMultiplicacion)."<br>".PHP_EOL;
+
+    echo llamadaAFuncion(2, 5, $funcMuestraParams)."<br>".PHP_EOL;
+
 }

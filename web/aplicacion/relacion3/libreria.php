@@ -170,3 +170,42 @@ function devuelve(int &$n1, int $n2 = 5, int $n3 = 10) : int {
 }
 
 
+function suma(int $op1, int $op2):int {
+    return $op1 + $op2;
+}
+
+function resta(int $op1, int $op2):int {
+    return $op1 - $op2;
+}
+
+function multiplicacion(int $op1, int $op2):int {
+    return $op1 * $op2;
+}
+
+function hacerOperacion(string $cadena, int $op1, int $op2):false|int {
+
+    $resultado = 0;
+
+    switch ($cadena) {
+        case "suma": {
+            $resultado = $cadena($op1, $op2);
+        } break;
+        case "resta": {
+            $resultado = $cadena($op1, $op2);
+        } break;
+        case "multiplicacion": {
+            $resultado = $cadena($op1, $op2);
+        } break;
+        default: {
+            $resultado = false;
+        } 
+    }
+
+    return $resultado;
+}
+
+
+function llamadaAFuncion(int $op1, int $op2, callable $op3) {
+
+    return $op3($op1, $op2);
+}
