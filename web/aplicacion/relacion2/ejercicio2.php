@@ -167,9 +167,11 @@ function cuerpo($arrayParams)
     $cadenaEspacios = "";
     $caracter = "";
 
-    for ($cont = mb_strlen($arrayParams["cadena"]); $cont >= 0; $cont--) {
+    //MIRAR CORRECCIÓN DE VICENTE
 
-        $caracterParParaUsuario = mb_substr($arrayParams["cadena"], $cont, 1);
+    for ($cont = 0; $cont > mb_strlen($arrayParams["cadena"]); $cont++) {
+
+        $caracterParParaUsuario = mb_substr($arrayParams["cadena"], -($cont), 1);
 
         if ($cont !== 0)
             $cadenaEspacios .= "&nbsp;";

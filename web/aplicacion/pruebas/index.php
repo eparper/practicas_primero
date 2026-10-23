@@ -36,5 +36,6 @@ function cuerpo()
     <a href="array.php">ARRAYS</a><br>
     <a href="cadenas.php">CADENAS</a><br>
     <a href="expresionesRegulares.php">Expresiones Regulares</a><br>
+    <a href="index_funciones.php">Index Funciones</a><br>
 <?php
 }

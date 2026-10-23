@@ -61,9 +61,11 @@ function cuerpo($numeroFormateado, $numeroFormateado2)
     
 <?php
     
-    //   
+    //el segundo no se puede hacer con str_pad, hay que hacerlo con str_repeat y concatenar
 
     echo "el primer valor -" . str_pad($numeroFormateado, 15, "0", STR_PAD_LEFT) . "-, 
-            el segundo valor -" . str_pad($numeroFormateado2, 15, "&nbsp;", STR_PAD_LEFT) . "-".PHP_EOL;
+            el segundo valor -" . str_repeat("&nbsp;", 15 - (mb_strlen($numeroFormateado2))) .
+                $numeroFormateado2 . "-".PHP_EOL;
     
+
 }

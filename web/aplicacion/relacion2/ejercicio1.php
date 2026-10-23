@@ -49,9 +49,9 @@ fin; //el fin es lo que se utiliza para finalizar, y el fin de arriba va entre c
 
 //QUE LAS ETIQUETAS HTML NO SE EJECUTEN
 $cadena5 = "'hola mundo', <span style='color:{$color};'> hasta </span>\"luego\" á, é, ñ";
-$cadena55 = htmlspecialchars($cadena5);
+$cadena55 = htmlspecialchars($cadena5); //se hace con htmlentities()
 
-$cadena6 = '\'hola mundo\', <span style="color: ' . $color . ';"> hasta </span>"luego" á, é, ñ';
+$cadena6 = '\'hola mundo\', <span style="color: $color;"> hasta </span>"luego" á, é, ñ';
 $cadena66 = htmlspecialchars($cadena6);
 
 $cadena7 = <<<fin
