@@ -133,32 +133,32 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
     echo "<br><br>".PHP_EOL;
 
     echo "Ejercicio 6: <br>".PHP_EOL;
-    echo llamadaAFuncion(2, 5, fn($a,$b)=>$a+$b)."<br>".PHP_EOL;
+    echo llamadaAFuncion(2, 5, fn(int $a2,int $b)=>$a2+$b)."<br>".PHP_EOL;
 
-    echo llamadaAFuncion(2, 5, fn($a,$b)=>$a-$b)."<br>".PHP_EOL;
+    echo llamadaAFuncion(2, 5, fn(int $a2,int $b)=>$a2-$b)."<br>".PHP_EOL;
 
-    echo llamadaAFuncion(2, 5, fn($a,$b)=>$a*$b)."<br>".PHP_EOL;
+    echo llamadaAFuncion(2, 5, fn(int $a2,int $b)=>$a2*$b)."<br>".PHP_EOL;
 
-    echo llamadaAFuncion(2, 5, fn($a,$b)=>"Param1: " . $a . ". Param2: " . $b)."<br>".PHP_EOL;
+    echo llamadaAFuncion(2, 5, fn(int $a2,int $b)=>"Param1: " . $a2 . ". Param2: " . $b)."<br>".PHP_EOL;
 
     echo "<br><br>".PHP_EOL;
 
     echo "Con funciones anónimas: <br>".PHP_EOL;
 
-    $funcSuma = function ($a, $b) {
-        return $a + $b;
+    $funcSuma = function (int $a2, int $b) {
+        return $a2 + $b;
     };
 
-    $funcResta = function ($a, $b) {
-        return $a - $b;
+    $funcResta = function (int $a2, int $b) {
+        return $a2 - $b;
     };
 
-    $funcMultiplicacion = function ($a, $b) {
-        return $a * $b;
+    $funcMultiplicacion = function (int $a2, int $b) {
+        return $a2 * $b;
     };
 
-    $funcMuestraParams = function ($a, $b) {
-        return "Param1: " . $a . ". Param2: " . $b;
+    $funcMuestraParams = function (int $a2, int $b) {
+        return "Param1: " . $a2 . ". Param2: " . $b;
     };
 
     echo llamadaAFuncion(2, 5, $funcSuma)."<br>".PHP_EOL;
@@ -169,4 +169,15 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
 
     echo llamadaAFuncion(2, 5, $funcMuestraParams)."<br>".PHP_EOL;
 
+
+    echo "<br><br>".PHP_EOL;
+
+    echo "Ejercicio 7: <br>".PHP_EOL;
+
+    $vector = array("uno", "grande", "caminos", "a");
+    ordenar($vector); //el vector debe quedar (“caminos”,”grande”,”uno”,”a”)
+
+    foreach ($vector as $elem) {
+        echo $elem . " ";
+    }
 }
