@@ -20,7 +20,7 @@ function cuentaVeces(array &$arrayParam, string $cadena, int|float $num1, int &$
     $contVeces++;
     $num2 = $contVeces;
 
-    static $array = []; //si no pones static se resetea en cada llamada
+    
 
 
     if ($cadena == "2daw" || $cadena == "primera" || $cadena == "") {
@@ -28,9 +28,7 @@ function cuentaVeces(array &$arrayParam, string $cadena, int|float $num1, int &$
     }
     else {
 
-        $array[$cadena] = $num1;
-
-        $arrayParam = $array;
+        $arrayParam[$cadena] = $num1;
 
         $resultado = true;
     }

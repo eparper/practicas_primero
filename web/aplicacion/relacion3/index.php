@@ -68,6 +68,7 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
 
 <?php
 
+    $n2 = 0;
 
     echo "Ejercicio 1: <br>".PHP_EOL;
     echo "Llamada número: " . $n2 . "<br>".PHP_EOL;
