@@ -12,17 +12,18 @@
  * @param integer $num2 Número en el que se le pasa el contador de veces que se llama a la función.
  * @return boolean Se devuelve true si todo ha ido bien o false si las posiciones no son válidas (2daw o primera)
  */
-function cuentaVeces(array &$arrayParam, string $cadena, int $num1, int &$num2) : bool { //estos tipos hay que comprobar si son o no
+function cuentaVeces(array &$arrayParam, string $cadena, int|float $num1, int &$num2) : bool { //estos tipos hay que comprobar si son o no
     
     $resultado = false;
     //para aumentar el contador del num2
     static $contVeces = 0;
     $contVeces++;
     $num2 = $contVeces;
+
     static $array = []; //si no pones static se resetea en cada llamada
 
 
-    if ($cadena == "2daw" || $cadena == "primera") {
+    if ($cadena == "2daw" || $cadena == "primera" || $cadena == "") {
         $resultado = false;
     }
     else {
@@ -220,11 +221,11 @@ function hacerOperacion(string $cadena, int $op1, int $op2):false|int {
 
     switch ($cadena) {
         case "suma": {
-            $resultado = $cadena($op1, $op2);
-        } break;
+            
+        } 
         case "resta": {
-            $resultado = $cadena($op1, $op2);
-        } break;
+            
+        } 
         case "multiplicacion": {
             $resultado = $cadena($op1, $op2);
         } break;
@@ -259,5 +260,11 @@ function llamadaAFuncion(int $op1, int $op2, callable $op3) : mixed {
  */
 function ordenar(array &$arr) : void {
 
+    //el operador nave devuelve 0,1,-1
     usort($arr, fn(string $a2, string $b):int => mb_strlen($b) <=> mb_strlen($a2));
+
+    //si sale 0 la resta de los tamaños: son iguales las cadenas.
+    //si sale negativo: b es menor
+    //si sale positivo: b es mayor
+    //usort($arr, fn(string $a2, string $b):int => mb_strlen($b) - mb_strlen($a2));
 }
