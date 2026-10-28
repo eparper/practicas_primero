@@ -1,13 +1,13 @@
 <?php
 
-class InstrumentoBase {
+abstract class InstrumentoBase {
 
     //propiedades
     private string $_descripcion;
     protected int $_edad = 10;
 
-    protected static int $_numeroOrden = 0;
-    private static ?InstrumentoBase $_objeto = null;
+    protected static int $_contadorElementos = 0;
+    private int $_ordenCreacion;
 
 
     public function __construct(string $desc, int $ed = 10)
@@ -15,18 +15,9 @@ class InstrumentoBase {
         $this -> _descripcion = $desc;
         $this -> _edad = $ed;
 
-        //se le asigna a la instancia el número de orden de creación del 
-        //instrumento actual y se incrementa el valor de la variable de clase. 
-        $obj = new static($desc, $ed);
-        self::$_objeto = $obj;
+        self::$_contadorElementos++;
 
-        //al numeroOrden de la instancia se le iguala el numeroOrden 
-        self::$_objeto -> _numeroOrden = self::$_numeroOrden;
-
-        self::$_numeroOrden++;
-
-
-
+        $this->_ordenCreacion = self::$_contadorElementos;
 
     }
 
@@ -44,17 +35,46 @@ class InstrumentoBase {
         return $this -> _edad;
     }
 
-    //abstract public function sonido();
-    //abstract public function afinar();
+    abstract public function sonido();
+    abstract public function afinar();
 
     
     public function envejecer():void {
         $this -> _edad++;
     }
 
+
+
+    //PARA QUE NO TENGA SOBRECARGA:
+    //métodos mágicos para control de la sobrecarga
+    public function __set(string $name, mixed $value):void {
+        throw new \Exception("La propiedad $name no existe");
+        
+    }
+
+    public function __get(string $name):mixed {
+        throw new \Exception("La propiedad $name no existe");
+    }
+
+    public function __isset(string $name):bool
+    {
+        //throw new \Exception('Not implemented');
+        return false;
+    }
+
+    public function __unset(string $name):void
+    {
+        //throw new \Exception('Not implemented');
+        ;
+    }
+
+
+
     public function __toString():string {
         return "Instrumento con descripción " . $this->getDescripcion() . ", instancia 
-                9999 de un total de 999. Tiene 999 años. La clase es ";
+                " . $this->_ordenCreacion . " de un total de " . self::$_contadorElementos . 
+                ". Tiene " . $this->getEdad() . 
+                " años. La clase es " . get_class();
     }
 
    
