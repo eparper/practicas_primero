@@ -52,5 +52,10 @@ class InstrumentoBase {
         $this -> _edad++;
     }
 
+    public function __toString():string {
+        return "Instrumento con descripción " . $this->getDescripcion() . ", instancia 
+                9999 de un total de 999. Tiene 999 años. La clase es ";
+    }
+
    
 }

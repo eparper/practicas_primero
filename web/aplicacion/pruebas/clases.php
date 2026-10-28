@@ -60,6 +60,96 @@ $segunda = Unica::crear(300); //ambos hacen referencia al mismo objeto aunque lo
 $ins = new Instituto();
 
 
+//------------------------------------SOBRECARGA--------------------
+$clase1 = new Clasenormal();
+$clase2 = new Clasenormal();
+
+$clase1 -> cadena = "hola mundo"; //crea una propiedad a este objeto clase1
+
+$cad = "";
+if (isset($clase1->cadena)) {
+   $cad = $clase1->cadena;
+}
+
+//entonces por aquí no entra porque no existe cadena en el objeto clase2
+if (isset($clase2->cadena)) {
+   $cad = $clase2->cadena;
+}
+
+
+//-------------
+
+//clase sin sobrecarga
+$clase1 = new ClaseSinsobrecarga();
+$clase1->numero = 100; //esta propiedad sí está en la clase
+//$clase1 -> cadena = "adiós"; //se llama aquí al método mágico __set
+
+//$cad = $clase1 -> cadena; //
+if (isset($clase1->cadena)) { //accede por el isset
+   $cad = $clase1->cadena;
+}
+
+//clase sobrecargada
+$clase1 = new ClaseSobrecarga();
+
+$val = $clase1 -> moreno; //234 tendremos en val porque la propiedad empieza por m o M
+$val = $clase1 -> marcha; //234
+$val = $clase1 -> numero; //val vale 10, no llama al método mágico get porque sí está en la clase
+//$val = $clase1 -> hora;
+
+$clase1 -> marcha = $val; // bien
+$clase1 -> numero = $val + 10; //bien pero no entra por método mágico porque ya está definido en la clase
+//$clase1 -> hora = $val; //debería lanzar una excepción
+
+//________________________________________________________
+
+$obj=new ClaseDinamica(); 
+ 
+//se accede directamente a la propiedad al ser publica. 
+$obj->varPublica=12; 
+echo $obj->varPublica; 
+ 
+//la propiedad nueva no está definida en la clase. 
+//se llama automáticamente a __set 
+$obj->nueva=10; 
+ 
+//la propiedad nueva no está definida en la clase. 
+//se llama automáticamente a __get 
+echo $obj->nueva; 
+ 
+ 
+//se comprueba si existe la propiedad nueva. 
+//como no es visible se llama de forma automática 
+//a __isset 
+if (isset($obj->nueva)) 
+    echo "la propiedad nueva existe"; 
+ 
+//se elimina la propiedad nueva 
+unset($this->nueva); 
+ 
+//accede a una propiedad que no se ha inicializado antes 
+//se lanza una excepcion. 
+echo $obj->noexiste; 
+
+//____________________________________________________________
+
+//CLASE DINÁMICA
+//uso clase dinámica que guarda las nuevas propiedades en un array privado
+$clase1 = new ClaseDinamica();
+$clase2 = new ClaseDinamica();
+
+$clase1 -> nombre = "Vicente";
+
+$cadena = $clase1 -> nombre;
+
+$clase1 -> varPublica = 20;
+
+//$cadea = $clase2 -> nombre; //da un error porque habíamos definido nombre en $clase1, no en $clase2
+if (isset($clase2 -> nombre))
+   $cadea = $clase2 -> nombre;
+
+unset($clase1 -> nombre);
+
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
