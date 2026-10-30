@@ -22,9 +22,16 @@ $barraUbicacion = [
 
 
 
-$ob3 = new InstrumentoViento("metal"); //edad 15
-$ob4 = new InstrumentoViento("plástico", 23); //edad 15
+// $ob3 = new InstrumentoViento("metal"); //edad 15
+// $ob4 = new InstrumentoViento("plástico", 23); //edad 15
 
+$arrayInfo2 = [
+    "material" => "plástico",
+    "edad" => 5
+];
+
+$ob5 = Flauta::CrearDesdeArray(Flauta::$arrayInfo);
+$ob6 = Flauta::CrearDesdeArray($arrayInfo2);
 
 
 
@@ -35,7 +42,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 4", $barraUbicacion);
-cuerpo($ob3, $ob4);  //llamo a la vista
+cuerpo($ob5, $ob6);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -48,7 +55,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(InstrumentoViento $ob3, InstrumentoViento $ob4)
+function cuerpo(Flauta $ob5, Flauta $ob6)
 {
 ?>
     <br><br>
@@ -84,13 +91,24 @@ function cuerpo(InstrumentoViento $ob3, InstrumentoViento $ob4)
     // if (isset($ob1->modelo))
     //     $modelo = $ob1 -> modelo;
 
+    //----------
 
-    echo $ob3 -> sonido() . "<br>".PHP_EOL;
-    echo $ob4 -> sonido() . "<br>".PHP_EOL;
+    // echo $ob3 -> sonido() . "<br>".PHP_EOL;
+    // echo $ob4 -> sonido() . "<br>".PHP_EOL;
 
-    echo $ob3 -> afinar() . "<br>".PHP_EOL;
-    echo $ob4 -> afinar() . "<br>".PHP_EOL;
+    // echo $ob3 -> afinar() . "<br>".PHP_EOL;
+    // echo $ob4 -> afinar() . "<br>".PHP_EOL;
 
-    echo $ob3 . "<br>".PHP_EOL;
-    echo $ob4 . "<br>".PHP_EOL;
+    // echo $ob3 . "<br>".PHP_EOL;
+    // echo $ob4 . "<br>".PHP_EOL;
+
+
+    //--------------
+    echo $ob5->metodoFabricacion()."<br>";
+    echo $ob6->metodoReciclado();
+
+    $miObjetoClonado = clone $ob5;
+
+    
+
 }

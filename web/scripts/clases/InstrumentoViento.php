@@ -8,6 +8,8 @@ class InstrumentoViento extends InstrumentoBase {
     {   //se puede llamar al constructor de la clase padre 
         parent::__construct("instrumento de viento", $edad);
 
+        
+
         $this -> _material = $mat;
     }
 

@@ -7,7 +7,7 @@ abstract class InstrumentoBase {
     protected int $_edad = 10;
 
     protected static int $_contadorElementos = 0;
-    private int $_ordenCreacion;
+    protected int $_ordenCreacion;
 
 
     public function __construct(string $desc, int $ed = 10)
