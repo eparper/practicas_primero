@@ -74,7 +74,7 @@ abstract class InstrumentoBase {
         return "Instrumento con descripción " . $this->getDescripcion() . ", instancia 
                 " . $this->_ordenCreacion . " de un total de " . self::$_contadorElementos . 
                 ". Tiene " . $this->getEdad() . 
-                " años. La clase es " . get_class();
+                " años. La clase es " . get_class($this);
     }
 
    

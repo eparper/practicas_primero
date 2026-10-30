@@ -16,10 +16,16 @@ class InstrumentoViento extends InstrumentoBase {
         return "¡Fuuu-fiii-fuuu!";
     }
 
-    public function afinar() {
+    public final function afinar() {
 
         return "1. Calienta el instrumento soplando aire templado.\n" .
                "2. Toca una nota de referencia (usualmente un La).\n" .
                "3. Ajusta la junta de la cabeza: introdúcela si el tono es bajo, o sácatela un poco si el tono es alto.";
+    }
+
+    
+    public function __toString(): string
+    {
+        return parent::__toString() . " Instrumento de material " . $this->_material;
     }
 }

@@ -22,8 +22,9 @@ $barraUbicacion = [
 
 
 
-//-------------------------
-//-------------Ejercicio 2------------------
+$ob3 = new InstrumentoViento("metal"); //edad 15
+$ob4 = new InstrumentoViento("plástico", 23); //edad 15
+
 
 
 
@@ -34,7 +35,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 4", $barraUbicacion);
-cuerpo($ob1, $ob2);  //llamo a la vista
+cuerpo($ob3, $ob4);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -47,7 +48,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(InstrumentoBase $ob1, InstrumentoBase $ob2)
+function cuerpo(InstrumentoViento $ob3, InstrumentoViento $ob4)
 {
 ?>
     <br><br>
@@ -82,4 +83,14 @@ function cuerpo(InstrumentoBase $ob1, InstrumentoBase $ob2)
     // $modelo = "";
     // if (isset($ob1->modelo))
     //     $modelo = $ob1 -> modelo;
+
+
+    echo $ob3 -> sonido() . "<br>".PHP_EOL;
+    echo $ob4 -> sonido() . "<br>".PHP_EOL;
+
+    echo $ob3 -> afinar() . "<br>".PHP_EOL;
+    echo $ob4 -> afinar() . "<br>".PHP_EOL;
+
+    echo $ob3 . "<br>".PHP_EOL;
+    echo $ob4 . "<br>".PHP_EOL;
 }
