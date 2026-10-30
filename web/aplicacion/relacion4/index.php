@@ -17,8 +17,8 @@ $barraUbicacion = [
 
 //-------------------------
 //-------------Ejercicio 1------------------
-// $ob1 = new InstrumentoBase("Instrumento piano de cuerda");
-// $ob2 = new InstrumentoBase("Instrumento saxofón de viento", 20);
+//$ob1 = new InstrumentoBase("Instrumento piano de cuerda");
+//$ob2 = new InstrumentoBase("Instrumento saxofón de viento", 20);
 
 
 
