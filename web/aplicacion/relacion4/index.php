@@ -51,7 +51,8 @@ $persona1 = Persona::registrarPersona("Noe", "12/02/2003",
                                         $estadoCivil);
 
 
-
+//ClaseMisPropiedades
+$Objeto = new ClaseMisPropiedades(); 
 
 
 //-------------------------
@@ -61,7 +62,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 4", $barraUbicacion);
-cuerpo($ob5, $ob6, $persona1);  //llamo a la vista
+cuerpo($ob5, $ob6, $persona1, $Objeto);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -74,7 +75,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(Flauta $ob5, Flauta $ob6, Persona $persona1)
+function cuerpo(Flauta $ob5, Flauta $ob6, Persona $persona1, $Objeto)
 {
 ?>
     <br><br>
@@ -150,4 +151,17 @@ function cuerpo(Flauta $ob5, Flauta $ob6, Persona $persona1)
         echo $valor . " ";
     }
 
+    echo "<br>".PHP_EOL;
+
+    
+    $Objeto->propPublica="publica"; 
+    //$Objeto->_propPrivada="privada"; //no es valida al ser privada 
+    $Objeto->propiedad1=25; 
+    $Objeto->propiedad2="cadena de texto"; 
+    echo "la propiedad 1 vale ".$Objeto->propiedad1."<br>"; 
+    //echo $Objeto->propiedad3; // esto debería dar un error al no haber asignado previamente la propiedad 
+
+    foreach ($Objeto as $key => $value) {
+        echo "la clave es " . $key . "<br>"; 
+    } 
 }
