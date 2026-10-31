@@ -1,15 +1,24 @@
 <?php
-
+/**
+ * Clase abstracta InstrumentoBase de la que heredarán las siguientes clases
+ */
 abstract class InstrumentoBase {
 
-    //propiedades
+    //propiedades de instancia
     private string $_descripcion;
     protected int $_edad = 10;
-
-    protected static int $_contadorElementos = 0;
     protected int $_ordenCreacion;
 
+    //propiedad de clase
+    protected static int $_contadorElementos = 0;
+    
 
+    /**
+     * Constructor público
+     *
+     * @param string $desc Se le pasa una descripción del instrumento
+     * @param integer $ed Se le pasa la edad del instrumento, por defecto es 10
+     */
     public function __construct(string $desc, int $ed = 10)
     {
         $this -> _descripcion = $desc;
@@ -21,24 +30,54 @@ abstract class InstrumentoBase {
 
     }
 
-    //prop descripcion
+    /**
+     * Método get de descripción para obtener la descripción de un Instrumento
+     *
+     * @return string Se devuelve la descripción del instrumento
+     */
     public function getDescripcion():string {
         return $this -> _descripcion;
     }
 
+    /**
+     * Método set para modificar la descripción del instrumento
+     *
+     * @param string $paramDescripcion Se le pasa una descripción para modificar la anterior
+     * @return void No devuelve nada, solo modifica
+     */
     public function setDescripcion(string $paramDescripcion):void {
         $this -> _descripcion = $paramDescripcion;
     }
 
-    //prop edad 
+    /**
+     * Método get para obtener la edad del instrumento
+     *
+     * @return integer Devuelve la edad del instrumento.
+     */
     public function getEdad() : int {
         return $this -> _edad;
     }
 
-    abstract public function sonido();
-    abstract public function afinar();
+    /**
+     * Método abstracto que devuelve el sonido del instrumento en las clases heredadas
+     *
+     * @return string Devuelve el sonido del instrumento
+     */
+    abstract public function sonido():string;
 
-    
+    /**
+     * Devuelve los pasos para afinar el instrumento
+     *
+     * @return string Devuelve los pasos para afinar el instrumento
+     */
+    abstract public function afinar():string;
+
+    /**
+     * Cuando se llama a este método, se aumenta un año la edad
+     * del instrumento
+     *
+     * @return void No devuelve nada.
+     */
     public function envejecer():void {
         $this -> _edad++;
     }
@@ -70,6 +109,11 @@ abstract class InstrumentoBase {
 
 
 
+    /**
+     * Método toString para devolver la cadena del objeto
+     *
+     * @return string Devuelve una cadena explicando el objeto
+     */
     public function __toString():string {
         return "Instrumento con descripción " . $this->getDescripcion() . ", instancia 
                 " . $this->_ordenCreacion . " de un total de " . self::$_contadorElementos . 

@@ -1,7 +1,10 @@
 <?php
-
+/**
+ * Clase SerieFibonacci que calcula la serie de Fibonacci con la interfaz de Iterator
+ */
 class SerieFibonacci implements Iterator {
 
+    //propiedades de instancia
     private int $_limite;
     private int $_claveActual; //índice
 
@@ -9,6 +12,11 @@ class SerieFibonacci implements Iterator {
     private int $_fib1;
     private int $_fibonacci;
 
+    /**
+     * Constructor público para asignar el límite
+     *
+     * @param integer $lim se le pasa el límite de donde queramos que pare la serie Fibonacci
+     */
     public function __construct(int $lim)
     {
         $this -> _limite = $lim;
@@ -56,7 +64,14 @@ class SerieFibonacci implements Iterator {
         return($this->_claveActual <= $this->_limite); 
     } 
 
-    public static function fFibonacci(int $ultimo) {
+    /**
+     * Método de clase para calcular la serie de Fibonacci pero sin Iterator.
+     * Con generador (yield)
+     *
+     * @param integer $ultimo Último valor que queremos como límite para que pare la serie
+     * @return void No devuelve nada
+     */
+    public static function fFibonacci(int $ultimo) :void {
 
         $fib0 = 0;
         $fib1 = 1;

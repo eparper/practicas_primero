@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Clase que no se puede heredar de ella
+ * Hereda de InstrumentoViento
+ * Implementa la interfaz IFabricable
+ * Con ella se puede construir una flauta
+ */
 final class Flauta extends InstrumentoViento implements IFabricable {
 
     public static array $arrayInfo = [
@@ -7,6 +12,12 @@ final class Flauta extends InstrumentoViento implements IFabricable {
         "edad" => 15
     ];
 
+    /**
+     * Constructor privado que se usa en esta clase
+     *
+     * @param string $material Material de la flauta
+     * @param integer $edad Edad de la flauta
+     */
     private function __construct(string $material = "madera", int $edad = 15)
     {
         parent::__construct($material, $edad);
@@ -16,6 +27,11 @@ final class Flauta extends InstrumentoViento implements IFabricable {
     
     }
 
+    /**
+     * Método mágico para clonar objetos
+     *
+     * @return void No devuelve nada
+     */
     public function __clone()
     {
         //en el array estático no habría que ponerlo
@@ -31,7 +47,13 @@ final class Flauta extends InstrumentoViento implements IFabricable {
 
     }
 
-    //constructor estatico publico 
+    /**
+     * Constructor estático público, con el que crearemos flautas
+     * desde el fuera.
+     *
+     * @param array $arr Array con las propiedades material y edad como claves
+     * @return static Devuelve un objeto flauta
+     */
     public static function CrearDesdeArray(array $arr): static
     {
         
@@ -54,6 +76,12 @@ final class Flauta extends InstrumentoViento implements IFabricable {
 
 
     //MÉTODOS DE LA INTERFAZ IFABRICABLE
+
+    /**
+     * Método que dice los pasos para fabricar una flauta
+     *
+     * @return string Devuelve los pasos para la fabricación de la flauta
+     */
     public function metodoFabricacion() : string {
 
         return "1. Selección de madera noble (como palisandro o peral) secada al aire durante años. 
@@ -64,6 +92,11 @@ final class Flauta extends InstrumentoViento implements IFabricable {
     }
 
 
+    /**
+     * Método que dice el método de reciclado de una flauta
+     *
+     * @return string Devuelve le método de reciclado de la flauta
+     */
     public function metodoReciclado() : string {
 
         return "1. Desmontar el instrumento separando sus secciones (cabeza, cuerpo y pie). 
