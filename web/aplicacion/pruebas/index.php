@@ -14,6 +14,8 @@ $barraUbicacion = [
 ];
 
 
+
+
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
@@ -38,5 +40,6 @@ function cuerpo()
     <a href="expresionesRegulares.php">Expresiones Regulares</a><br>
     <a href="index_funciones.php">Index Funciones</a><br>
     <a href="clases.php">Clases</a><br>
+    <a href="pagFormulario.php">Formulario</a><br>
 <?php
 }

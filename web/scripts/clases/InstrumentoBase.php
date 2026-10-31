@@ -7,7 +7,7 @@ abstract class InstrumentoBase {
     protected int $_edad = 10;
 
     protected static int $_contadorElementos = 0;
-    private int $_ordenCreacion;
+    protected int $_ordenCreacion;
 
 
     public function __construct(string $desc, int $ed = 10)
@@ -74,7 +74,7 @@ abstract class InstrumentoBase {
         return "Instrumento con descripción " . $this->getDescripcion() . ", instancia 
                 " . $this->_ordenCreacion . " de un total de " . self::$_contadorElementos . 
                 ". Tiene " . $this->getEdad() . 
-                " años. La clase es " . get_class();
+                " años. La clase es " . get_class($this);
     }
 
    
