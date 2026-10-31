@@ -169,9 +169,9 @@ function cuerpo($arrayParams)
 
     //MIRAR CORRECCIÓN DE VICENTE
 
-    for ($cont = 0; $cont > mb_strlen($arrayParams["cadena"]); $cont++) {
+    for ($cont = 1; $cont <= mb_strlen($arrayParams["cadena"]); $cont++) {
 
-        $caracterParParaUsuario = mb_substr($arrayParams["cadena"], -($cont), 1);
+        $caracterParParaUsuario = mb_substr($arrayParams["cadena"], -$cont, 1);
 
         if ($cont !== 0)
             $cadenaEspacios .= "&nbsp;";
@@ -180,7 +180,7 @@ function cuerpo($arrayParams)
         if ($cont % 2 == 0)
             $caracterFinal = mb_strtoupper($caracterParParaUsuario);
         else 
-            $caracterFinal = mb_substr($arrayParams["cadena"], $cont, 1);
+            $caracterFinal = mb_substr($arrayParams["cadena"], -$cont, 1); //el mb_substr trabaja con orden inverso con números negativos
 
         echo $cadenaEspacios . $caracterFinal . "<br>";
         

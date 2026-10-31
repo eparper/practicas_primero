@@ -68,6 +68,7 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
 
 <?php
 
+    $n2 = 0;
 
     echo "Ejercicio 1: <br>".PHP_EOL;
     echo "Llamada número: " . $n2 . "<br>".PHP_EOL;
@@ -105,7 +106,9 @@ function cuerpo(array $a, string $c, int $n1, int $n2, array $ej2, int $sum)
 
     echo operaciones(1,2,5,7,3,4)."<br>".PHP_EOL; //sumará todos los operandos
     echo operaciones(5,2,5,7,3,4)."<br>".PHP_EOL; //sumará pares e impares y restará a pares - impares
-
+    //le pasamos comno resto pero eso hace que se asignen los primeros valores a los parámetros según
+    //la posición respectivamente
+    echo operaciones(...[5,2,5,7,3,4])."<br>".PHP_EOL; //da lo mismo que el de arriba
 
     echo "<br><br>".PHP_EOL;
 

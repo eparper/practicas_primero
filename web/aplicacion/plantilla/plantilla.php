@@ -31,7 +31,7 @@ function inicioCabecera($titulo)
         <meta name="description" content="">
         <meta name="author" content="Administrador">
 
-        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
         <link rel="shortcut icon" href="/favicon.ico">
@@ -71,6 +71,7 @@ function inicioCuerpo(string $cabecera, array $barraUbicacion = [])
                     <li><a href="/aplicacion/relacion1/index.php">Relación 1</a></li>
                     <li><a href="/aplicacion/relacion2/index.php">Relación 2</a></li>
                     <li><a href="/aplicacion/relacion3/index.php">Relación 3</a></li>
+                    <li><a href="/aplicacion/relacion4/index.php">Relación 4</a></li>
                  </ul> 
                 
             </div>
