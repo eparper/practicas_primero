@@ -11,11 +11,7 @@ final class Flauta extends InstrumentoViento implements IFabricable {
     {
         parent::__construct($material, $edad);
 
-        self::$arrayInfo["material"] = $material;
-        self::$arrayInfo["edad"] = $edad;
-
-        $this->_material = self::$arrayInfo["material"];
-        $this->_edad = self::$arrayInfo["edad"];
+        
 
     
     }
@@ -31,7 +27,7 @@ final class Flauta extends InstrumentoViento implements IFabricable {
         //clonando, así que aquí le definimos otra vez ese comportamiento
         parent::$_contadorElementos++;
 
-        $this->_ordenCreacion = self::$_contadorElementos;
+        $this->_ordenCreacion = parent::$_contadorElementos;
 
     }
 
@@ -46,8 +42,12 @@ final class Flauta extends InstrumentoViento implements IFabricable {
 
             return $obj;
         }
-        else
-            throw new \Exception("La posición material o edad del array, no existe");
+        else {
+            $obj = new static(self::$arrayInfo["material"], self::$arrayInfo["edad"]);
+
+            return $obj;
+        }
+            
             
     }
 

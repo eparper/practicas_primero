@@ -33,6 +33,23 @@ $arrayInfo2 = [
 $ob5 = Flauta::CrearDesdeArray(Flauta::$arrayInfo);
 $ob6 = Flauta::CrearDesdeArray($arrayInfo2);
 
+$arrayEstados = EstadoCivil::casos();
+
+$random = mt_rand(1, 4) * 10; //para que coja entre 0 y 3 
+
+foreach ($arrayEstados as $estado) { //aquí $estadoCivil es el "objeto" de la enumeración EstadoCivil
+
+    if ($random == $estado->valor()) {
+        $estadoCivil = $estado;
+    }
+}
+
+
+//Persona
+$persona1 = Persona::registrarPersona("Noe", "12/02/2003",
+                                        "casitas 3", "Mollina",
+                                        $estadoCivil);
+
 
 
 //-------------------------
@@ -42,7 +59,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 4", $barraUbicacion);
-cuerpo($ob5, $ob6);  //llamo a la vista
+cuerpo($ob5, $ob6, $persona1);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -55,7 +72,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(Flauta $ob5, Flauta $ob6)
+function cuerpo(Flauta $ob5, Flauta $ob6, Persona $persona1)
 {
 ?>
     <br><br>
@@ -108,7 +125,10 @@ function cuerpo(Flauta $ob5, Flauta $ob6)
     echo $ob6->metodoReciclado();
 
     $miObjetoClonado = clone $ob5;
+    echo $ob5."<br>";
+    echo $ob6."<br>";
+    echo $miObjetoClonado."<br>";
 
-    
+    echo $persona1;
 
 }
