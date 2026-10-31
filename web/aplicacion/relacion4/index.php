@@ -52,6 +52,8 @@ $persona1 = Persona::registrarPersona("Noe", "12/02/2003",
 
 
 
+
+
 //-------------------------
 
 //dibuja la plantilla de la vista
@@ -129,6 +131,23 @@ function cuerpo(Flauta $ob5, Flauta $ob6, Persona $persona1)
     echo $ob6."<br>";
     echo $miObjetoClonado."<br>";
 
-    echo $persona1;
+    echo $persona1."<br>";
+
+    //fibonacci
+    foreach(new SerieFibonacci(10) as $valor) 
+    { 
+        echo "$valor &nbsp;"; 
+    } 
+
+    /* Generaria 10 valores 
+    0 1 1 2 3 5 8 13 21 34 55 
+    */ 
+
+    echo "<br>".PHP_EOL;
+
+    //fibonacci con generador
+    foreach (SerieFibonacci::fFibonacci(10) as $valor) {
+        echo $valor . " ";
+    }
 
 }
