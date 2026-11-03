@@ -4,10 +4,10 @@
  * Enumeración de Estado Civil (enum backed)
  */
 enum EstadoCivil : int { 
-    case Soltero = 10; 
-    case Casado = 20; 
-    case Pareja = 30; 
-    case Viudo = 40; 
+    case SOLTERO = 10; 
+    case CASADO = 20; 
+    case PAREJA = 30; 
+    case VIUDO = 40; 
  
     //es una clase y se pueden definir sus propios métodos 
 
