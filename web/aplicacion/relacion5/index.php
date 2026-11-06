@@ -23,7 +23,7 @@ $variable = 2.5;
 VALFILTER\validaReal($variable, 0, 10, 5);
 echo gettype($variable);
 
-$variable = "5  a";
+$variable = "5a";
 VALFILTER\validaEntero($variable, 0, 10, 5);
 echo gettype($variable);
 

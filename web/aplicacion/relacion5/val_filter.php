@@ -3,13 +3,14 @@ namespace VALFILTER;
 
 function validaEntero(int &$var, int $min, int $max, int $defecto):bool {
 
+    $var = (int) $var;
+
     $opciones = [
         "options" => [
             "min_range" => 100,
             "max_range" => 200,
             "default" => 100
-        ],
-        "flags" => FILTER_FLAG_ALLOW_HEX
+        ]
     ];
 
     //filter_var($var, FILTER_);
