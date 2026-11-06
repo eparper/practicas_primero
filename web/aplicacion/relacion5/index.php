@@ -1,5 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . "/../../cabecera.php");
+include_once(dirname(__FILE__) . "/val_filter.php");
 
 //controlador
 
@@ -18,6 +19,13 @@ $barraUbicacion = [
 //-------------------------
 //-------------Ejercicio 1------------------
 
+$variable = 2.5;
+VALFILTER\validaReal($variable, 0, 10, 5);
+echo gettype($variable);
+
+$variable = "5  a";
+VALFILTER\validaEntero($variable, 0, 10, 5);
+echo gettype($variable);
 
 //-------------------------
 
