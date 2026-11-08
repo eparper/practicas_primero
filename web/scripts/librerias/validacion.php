@@ -1,13 +1,14 @@
 <?php
 
+
 /**
- * Undocumented function
+ * Función que valida si un entero está entre un valor mínimo y un valor máximo
  *
- * @param integer $var
- * @param integer $min
- * @param integer $max
- * @param integer $defecto
- * @return boolean
+ * @param integer $var El número a comprobar
+ * @param integer $min El valor mínimo del rango a comprobar
+ * @param integer $max El valor máximo del rango a comprobar
+ * @param integer $defecto El valor por defecto que se le pone a $var cuando hay algún problema
+ * @return boolean devuelve true si todo ha ido bien y false cuando no ha ido bien
  */
 function validaEntero(int &$var, int $min, int $max, int $defecto):bool {
 
@@ -34,13 +35,13 @@ function validaEntero(int &$var, int $min, int $max, int $defecto):bool {
 
 
 /**
- * Undocumented function
+ * Función que valida si un real está entre un valor mínimo y un valor máximo
  *
- * @param integer $var
- * @param integer $min
- * @param integer $max
- * @param integer $defecto
- * @return boolean
+ * @param integer $var El número a comprobar
+ * @param integer $min El valor mínimo del rango a comprobar
+ * @param integer $max El valor máximo del rango a comprobar
+ * @param integer $defecto El valor por defecto que se le pone a $var cuando hay algún problema
+ * @return boolean devuelve true si todo ha ido bien y false cuando no ha ido bien
  */
 function validaReal(int &$var, int $min, int $max, int $defecto):bool {
 
@@ -65,11 +66,11 @@ function validaReal(int &$var, int $min, int $max, int $defecto):bool {
 }
 
 /**
- * Undocumented function
+ * Función que valida una fecha
  *
- * @param string $var
- * @param string $defecto
- * @return boolean
+ * @param string $var Fecha en string para validarla
+ * @param string $defecto Si ha habido algún error, pone este valor por defecto
+ * @return boolean Devuelve true si ha ido bien, devuelve false si ha ido mal
  */
 function validaFecha(string &$var, string $defecto):bool  {
 
@@ -100,11 +101,11 @@ function validaFecha(string &$var, string $defecto):bool  {
 }
 
 /**
- * Undocumented function
+ * Función que valida una hora
  *
- * @param string $var
- * @param string $defecto
- * @return boolean
+ * @param string $var hora en string para validarla
+ * @param string $defecto Si ha habido algún error, pone este valor por defecto
+ * @return boolean Devuelve true si ha ido bien, devuelve false si ha ido mal
  */
 function validaHora(string &$var, string $defecto):bool {
 
@@ -143,11 +144,11 @@ function validaHora(string &$var, string $defecto):bool {
 }
 
 /**
- * Undocumented function
+ * Función que valida un email
  *
- * @param string $var
- * @param string $defecto
- * @return boolean
+ * @param string $var Email en string a validar
+ * @param string $defecto Si ha habido algún error, pone este valor por defecto
+ * @return boolean Devuelve true si ha ido bien, devuelve false si ha ido mal
  */
 function validaEmail(string &$var, string $defecto):bool {
 
@@ -164,12 +165,12 @@ function validaEmail(string &$var, string $defecto):bool {
 }
 
 /**
- * Undocumented function
+ * Función que valida si una cadena tiene la longitud permitida
  *
- * @param string $var
- * @param integer $longitud
- * @param string $defecto
- * @return boolean
+ * @param string $var Cadena a validar
+ * @param integer $longitud Longitud máxima permitida
+ * @param string $defecto Cadena por defecto si ha ido mal o ha habido algún fallo
+ * @return boolean Devuelve true si ha ido bien, devuelve false si ha ido mal
  */
 function validaCadena(string &$var, int $longitud, string $defecto):bool {
 
@@ -184,12 +185,12 @@ function validaCadena(string &$var, int $longitud, string $defecto):bool {
 }
 
 /**
- * Undocumented function
+ * Función que comprueba una expresión en una cadena
  *
- * @param string $var
- * @param string $expresion
- * @param string $defecto
- * @return boolean
+ * @param string $var Cadena donde se va a comprobar la expresión
+ * @param string $expresion Expresión regular para comprobar si la cadena cumple con ella
+ * @param string $defecto Valor por defecto en caso de fallo
+ * @return boolean Devuelve true si ha ido bien, devuelve false si ha ido mal
  */
 function validaExpresion(string &$var, string $expresion, string $defecto):bool {
 
@@ -212,12 +213,13 @@ function validaExpresion(string &$var, string $expresion, string $defecto):bool 
 }
 
 /**
- * 
+ * Función que dice si un valor está o en los índices del array pasado,
+ * o en los valores del array pasado.
  *
- * @param mixed $var
- * @param array $posibles
- * @param integer $tipo
- * @return boolean
+ * @param mixed $var Valor a comprobar si está o no
+ * @param array $posibles Array en el que vamos a comprobar si está el valor
+ * @param integer $tipo 1 si quieres comprobar en los valores, 2 si quieres comprobar en las claves
+ * @return boolean Devuelve true si ha ido bien, devuelve false si ha ido mal
  */
 function validaRango(mixed $var, array $posibles, int $tipo=1):bool {
 
