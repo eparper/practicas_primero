@@ -25,6 +25,30 @@ $barraUbicacion = [
 
 ];
 
+$res = filter_var(12, FILTER_VALIDATE_INT);
+
+$o = [
+    "options" => [
+        "min_range" => 100,
+        "max_range" => 200,
+        "default" => 100
+    ]
+];
+
+$res = filter_var("1230", FILTER_VALIDATE_INT, $o);
+
+$o = [
+    "options" => [
+        "min_range" => 100,
+        "max_range" => 200,
+        "default" => 100
+    ],
+    "flags" => FILTER_FLAG_ALLOW_HEX
+];
+
+$res = filter_var("101", FILTER_VALIDATE_INT, $o);
+
+
 //en variables superglobales: 
 //en $_REQUEST el resumen de lo que hayamos enviado por get y por post
 //cuando usamos get en el formulario, se ponen los datos en la url, no hay tanta privacidad y no podría enviar un vídeo o foto
@@ -124,7 +148,7 @@ function formulario(array $datos, array $errores)
     <form action="" method="post">
         <label for="nombre">Nombre: </label>
         <input type="text" name="nombre" id="nombre"
-            value="<?php echo $datos["nombre"]; ?>" size=21
+            value="<?= $datos["nombre"]; ?>" size=21
             maxlength="20"><br>
         <label for="precio">Precio: </label>
         <input type="text" name="precio" id="precio"

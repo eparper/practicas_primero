@@ -13,6 +13,32 @@ $barraUbicacion = [
     
 ];
 
+//búsqueda
+$exp = "/\w+(?=;)/";
+$cadena = " primera segunda tercera; cuarta quinta";
+preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
+
+$exp = "/\w+(?=.*;)/"; //(?=.*;) que después haya cualquier cosa y un punto y coma
+$cadena = " primera ; segunda tercera; cuarta ; quinta";
+preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
+
+///^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/ para contraseñas
+
+$exp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/"; //(?=.*;) que después haya cualquier cosa y un punto y coma
+$cadena = "AAAAAbbbb11"; //esta no la encuentra porque no tiene el caracter especial
+preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
+
+$exp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/"; //(?=.*;) que después haya cualquier cosa y un punto y coma
+$cadena = "AAAAAbbbb11%"; //esta sí la encuentra
+preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
+
+$exp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/"; //(?=.*;) que después haya cualquier cosa y un punto y coma
+$cadena = "'AAAAAbbbb11%?"; //esta no la encuentra
+preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
+
+$exp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/"; //(?=.*;) que después haya cualquier cosa y un punto y coma
+$cadena = "1A?A3Abbbb11%? "; //esta no la va a encontrar
+preg_match($exp, $cadena, $resultado, PREG_OFFSET_CAPTURE);
 
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");

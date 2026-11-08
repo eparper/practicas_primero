@@ -13,7 +13,8 @@ final class Flauta extends InstrumentoViento implements IFabricable {
     ];
 
     /**
-     * Constructor privado que se usa en esta clase
+     * Constructor privado que se usa en esta clase (si no lo defino, no pasaría nada porque el constructor
+     * también se hereda) SIEMPRE SE PASA A MÁS RESTRINGIDO, SI EL PADRE ES PUBLIC ESTE SE PUEDE PONER PRIVATE
      *
      * @param string $material Material de la flauta
      * @param integer $edad Edad de la flauta

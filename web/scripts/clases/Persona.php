@@ -21,7 +21,7 @@ class Persona {
         $this-> _fechaNacimiento = "01/01/2000";
         $this-> _domicilio = "carrera 12";
         $this-> _localidad = "antequera";
-        $this-> _estado = EstadoCivil::Soltero;
+        $this-> _estado = EstadoCivil::SOLTERO;
     }
 
     /**
@@ -36,7 +36,7 @@ class Persona {
      */
     public static function registrarPersona(string $nom = "prueba", string $fecha = "01/01/2000", 
                                             string $dom = "carrera 12", string $loc = "antequera",
-                                            EstadoCivil $est = EstadoCivil::Soltero) : static {
+                                            EstadoCivil $est = EstadoCivil::SOLTERO) : static {
 
         
         $obj = new static();

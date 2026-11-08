@@ -71,7 +71,7 @@ class SerieFibonacci implements Iterator {
      * @param integer $ultimo Último valor que queremos como límite para que pare la serie
      * @return void No devuelve nada
      */
-    public static function fFibonacci(int $ultimo) {
+    public static function fFibonacci(int $ultimo):iterable {
 
         $fib0 = 0;
         $fib1 = 1;
