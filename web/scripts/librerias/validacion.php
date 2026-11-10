@@ -22,7 +22,7 @@ function validaEntero(int &$var, int $min, int $max, int $defecto):bool {
 
     $resultadoBien = filter_var($var, FILTER_VALIDATE_INT, $opciones);
 
-    if ($resultadoBien) {
+    if ($resultadoBien !== false) { //le pongo false porque resultadoBien puede dar 0 y 0 es false en PHP
         //$var = $resultadoBien;
         return true;
     }
@@ -74,43 +74,28 @@ function validaReal(int &$var, int $min, int $max, int $defecto):bool {
  */
 function validaFecha(string &$var, string $defecto):bool  {
 
-    if ($var !== "") {
-        //separamos el día, mes y año
-        $fecha = mb_split("/", $var); 
+    
+    //separamos el día, mes y año
+    $fecha = mb_split("/", $var); 
 
-        //mes -- día -- año
-        $fechaBien = checkdate((int)$fecha[1], (int)$fecha[0], (int)$fecha[2]);
+    //mes -- día -- año
+    $fechaBien = checkdate((int)$fecha[1], (int)$fecha[0], (int)$fecha[2]);
 
-        if ($fechaBien) {
+    if ($fechaBien) {
 
-            //construimos una fecha
-            $fechaDate = mktime(0, month: $fecha[1], day: $fecha[0], year: $fecha[2]);
+        //construimos una fecha
+        $fechaDate = mktime(0, month: (int)$fecha[1], day: (int)$fecha[0], year: (int)$fecha[2]);
 
-            //saneamos día y mes si tienen 1 cifra
-            $var = date("d/m/Y", $fechaDate); //devuelve string
+        //saneamos día y mes si tienen 1 cifra
+        $var = date("d/m/Y", $fechaDate); //devuelve string
 
-            return true;
-        }
-        else {
-
-            $var = $defecto;
-            return false;
-        }
-
-        
-
+        return true;
     }
     else {
 
         $var = $defecto;
         return false;
     }
-    
-
-    
-
-    
-
 
 }
 
@@ -123,7 +108,7 @@ function validaFecha(string &$var, string $defecto):bool  {
  */
 function validaHora(string &$var, string $defecto):bool {
 
-    if ($var !== "") {
+    
         $horaBien = true;
 
         //separamos en hora, minutos y segundos
@@ -151,12 +136,10 @@ function validaHora(string &$var, string $defecto):bool {
             return true;
 
         }
-    }
-    
-    
-
-    $var = $defecto;
-    return false;
+        else {
+            $var = $defecto;
+            return false;
+        }
     
 }
 
