@@ -23,7 +23,7 @@ function validaEntero(int &$var, int $min, int $max, int $defecto):bool {
     $resultadoBien = filter_var($var, FILTER_VALIDATE_INT, $opciones);
 
     if ($resultadoBien) {
-        $var = $resultadoBien;
+        //$var = $resultadoBien;
         return true;
     }
     else {
@@ -74,21 +74,30 @@ function validaReal(int &$var, int $min, int $max, int $defecto):bool {
  */
 function validaFecha(string &$var, string $defecto):bool  {
 
-    //separamos el día, mes y año
-    $fecha = mb_split("/", $var); 
+    if ($var !== "") {
+        //separamos el día, mes y año
+        $fecha = mb_split("/", $var); 
 
-    //mes -- día -- año
-    $fechaBien = checkdate($fecha[1], $fecha[0], $fecha[2]);
+        //mes -- día -- año
+        $fechaBien = checkdate((int)$fecha[1], (int)$fecha[0], (int)$fecha[2]);
 
-    if ($fechaBien) {
+        if ($fechaBien) {
 
-        //construimos una fecha
-        $fechaDate = mktime(0, month: $fecha[1], day: $fecha[0], year: $fecha[2]);
+            //construimos una fecha
+            $fechaDate = mktime(0, month: $fecha[1], day: $fecha[0], year: $fecha[2]);
 
-        //saneamos día y mes si tienen 1 cifra
-        $var = date("d/m/Y", $fechaDate); //devuelve string
+            //saneamos día y mes si tienen 1 cifra
+            $var = date("d/m/Y", $fechaDate); //devuelve string
 
-        return true;
+            return true;
+        }
+        else {
+
+            $var = $defecto;
+            return false;
+        }
+
+        
 
     }
     else {
@@ -96,6 +105,11 @@ function validaFecha(string &$var, string $defecto):bool  {
         $var = $defecto;
         return false;
     }
+    
+
+    
+
+    
 
 
 }
@@ -109,38 +123,41 @@ function validaFecha(string &$var, string $defecto):bool  {
  */
 function validaHora(string &$var, string $defecto):bool {
 
-    $horaBien = true;
+    if ($var !== "") {
+        $horaBien = true;
 
-    //separamos en hora, minutos y segundos
-    $hora = mb_split(":", $var); 
+        //separamos en hora, minutos y segundos
+        $hora = mb_split(":", $var); 
 
-    //hora, minutos y segundos
-    if ($hora[0] > 23) { //horas
-        $horaBien = false;
+        //hora, minutos y segundos
+        if ((int)$hora[0] > 23) { //horas
+            $horaBien = false;
+        }
+        if ((int)$hora[1] > 59) { //minutos
+            $horaBien = false;
+        }
+        if ((int)$hora[2] > 59) { //segundos
+            $horaBien = false;
+        }
+
+        if ($horaBien) {
+
+            //construimos una hora
+            $horaDate = mktime((int)$hora[0], (int)$hora[1], (int)$hora[2]);
+
+            //saneamos la hora
+            $var = date("H:i:s", $horaDate); //devuelve string
+
+            return true;
+
+        }
     }
-    if ($hora[1] > 59) { //minutos
-        $horaBien = false;
-    }
-    if ($hora[2] > 59) { //segundos
-        $horaBien = false;
-    }
+    
+    
 
-    if ($horaBien) {
-
-        //construimos una hora
-        $horaDate = mktime($hora[0], $hora[1], $hora[2]);
-
-        //saneamos la hora
-        $var = date("H:i:s", $horaDate); //devuelve string
-
-        return true;
-
-    }
-    else {
-
-        $var = $defecto;
-        return false;
-    }
+    $var = $defecto;
+    return false;
+    
 }
 
 /**
