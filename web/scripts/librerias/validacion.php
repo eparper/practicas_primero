@@ -43,7 +43,7 @@ function validaEntero(int &$var, int $min, int $max, int $defecto):bool {
  * @param integer $defecto El valor por defecto que se le pone a $var cuando hay algún problema
  * @return boolean devuelve true si todo ha ido bien y false cuando no ha ido bien
  */
-function validaReal(int &$var, int $min, int $max, int $defecto):bool {
+function validaReal(float &$var, float $min, float $max, float $defecto):bool {
 
     $opciones = [
         "options" => [
@@ -55,8 +55,8 @@ function validaReal(int &$var, int $min, int $max, int $defecto):bool {
 
     $resultadoBien = filter_var($var, FILTER_VALIDATE_FLOAT, $opciones);
 
-    if ($resultadoBien) {
-        $var = $resultadoBien;
+    if ($resultadoBien !== false) {
+        //$var = $resultadoBien;
         return true;
     }
     else {
@@ -74,12 +74,18 @@ function validaReal(int &$var, int $min, int $max, int $defecto):bool {
  */
 function validaFecha(string &$var, string $defecto):bool  {
 
-    
-    //separamos el día, mes y año
-    $fecha = mb_split("/", $var); 
+    if (!preg_match("/\//", $var)) {
+        $var = $defecto;
+        return false;
+    }
+    else {
+        //separamos el día, mes y año
+        $fecha = mb_split("/", $var); 
 
-    //mes -- día -- año
-    $fechaBien = checkdate((int)$fecha[1], (int)$fecha[0], (int)$fecha[2]);
+        //mes -- día -- año
+        $fechaBien = checkdate((int)$fecha[1], (int)$fecha[0], (int)$fecha[2]);
+    }
+    
 
     if ($fechaBien) {
 
@@ -111,19 +117,29 @@ function validaHora(string &$var, string $defecto):bool {
     
         $horaBien = true;
 
-        //separamos en hora, minutos y segundos
-        $hora = mb_split(":", $var); 
+        $patronABuscar = "/:/";
 
-        //hora, minutos y segundos
-        if ((int)$hora[0] > 23) { //horas
-            $horaBien = false;
+        if (!preg_match($patronABuscar, $var)) {
+            $var = $defecto;
+            return false;
         }
-        if ((int)$hora[1] > 59) { //minutos
-            $horaBien = false;
+        else {
+            //separamos en hora, minutos y segundos
+            $hora = mb_split(":", $var); 
+
+            //hora, minutos y segundos
+            if ((int)$hora[0] > 23) { //horas
+                $horaBien = false;
+            }
+            if ((int)$hora[1] > 59) { //minutos
+                $horaBien = false;
+            }
+            if ((int)$hora[2] > 59) { //segundos
+                $horaBien = false;
+            }
         }
-        if ((int)$hora[2] > 59) { //segundos
-            $horaBien = false;
-        }
+
+        
 
         if ($horaBien) {
 
@@ -174,7 +190,7 @@ function validaEmail(string &$var, string $defecto):bool {
  */
 function validaCadena(string &$var, int $longitud, string $defecto):bool {
 
-    if (mb_strlen($var) < $longitud) {
+    if (mb_strlen($var) <= $longitud) {
         $var = (string) $var;
         return true;
     }
