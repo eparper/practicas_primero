@@ -74,7 +74,7 @@ function validaReal(float &$var, float $min, float $max, float $defecto):bool {
  */
 function validaFecha(string &$var, string $defecto):bool  {
 
-    if (!preg_match("/\//", $var)) {
+    if (!preg_match("/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/", $var)) {
         $var = $defecto;
         return false;
     }
@@ -117,7 +117,7 @@ function validaHora(string &$var, string $defecto):bool {
     
         $horaBien = true;
 
-        $patronABuscar = "/:/";
+        $patronABuscar = "/^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$/";
 
         if (!preg_match($patronABuscar, $var)) {
             $var = $defecto;
