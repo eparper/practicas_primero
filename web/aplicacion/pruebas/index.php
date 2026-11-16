@@ -41,5 +41,7 @@ function cuerpo()
     <a href="index_funciones.php">Index Funciones</a><br>
     <a href="clases.php">Clases</a><br>
     <a href="pagFormulario.php">Formulario</a><br>
+    <a href="cargapagina.php">carga página</a><br>
+    <a href="otrapagina.php">otra página</a><br>
 <?php
 }
