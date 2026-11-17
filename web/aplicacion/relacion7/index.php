@@ -364,63 +364,44 @@ function formulario(array $datos, array $errores) {
     ?>
 
     <form action="" method="post">
-        <label for="nombre">Nombre: </label>
-        <input type="text" name="nombre" id="nombre" value="<?= $datos["nombre"]; ?>"><br>
+        <label for="coordX">Coordenada X: </label>
+        <input type="text" name="coordX" value=""><br>
 
-        <label for="pass">Contraseña: </label>
-        <input type="password" name="contrasenia" id="pass" value="<?= $datos["contrasenia"]; ?>"><br>
+        <label for="coordY">Coordenada Y: </label>
+        <input type="text" name="coordY" value=""><br>
 
-        <label for="pass2">Repetir contraseña: </label>
-        <input type="password" name="contrasenia2" id="pass2" value="<?= $datos["contrasenia2"]; ?>"><br>
+        <label for="colores">Colores: </label>
+        <select name="colores">
+            <?php
+            foreach (Punto::COLORES as $indice => $valor) {
+                //el $indice es el color en inglés
+                ?>
+                <option value="<?= $indice ?>"><?= $valor["nombre"] ?></option>
+                <?php
 
-        <label for="fechaNac">Fecha Nacimiento: </label>
-        <input type="text" name="fechaNacimiento" id="fechaNac" value="<?= $datos["fechaNacimiento"]; ?>"><br>
+            }
 
-        <label for="fechaCarnetDia">Fecha Carnet: Día:</label>
-        <input type="text" name="fechaCarnetDia" id="fechaCarnetDia" value="<?= $datos["fechaCarnetDia"]; ?>" size="5">
-        <label for="fechaCarnetMes">Mes: </label>
-        <input type="text" name="fechaCarnetMes" id="fechaCarnetMes" value="<?= $datos["fechaCarnetMes"]; ?>" size="5">
-        <label for="fechaCarnetAnio">Año: </label>
-        <input type="text" name="fechaCarnetAnio" id="fechaCarnetAnio" value="<?= $datos["fechaCarnetAnio"]; ?>" size="5"><br>
 
-        <label for="horaLevantarse">Hora de levantarse: </label>
-        <input type="text" name="horaLevantarse" id="horaLevantarse" value="<?= $datos["horaLevantarse"]; ?>"><br>
+            ?>
+        </select>
 
-        <label for="">Estado:</label><br>
-        <input type="radio" name="estado" value="1" <?= (($datos["estado"] == "Estudiante")? "checked" : "") ?>>
-        <label for="estado">Estudiante</label> <br>
-        <input type="radio" name="estado" value="2" <?= (($datos["estado"] == "En paro")? "checked" : "") ?>>
-        <label for="estado">En paro</label> <br>
-        <input type="radio" name="estado" value="3" <?= (($datos["estado"] == "Trabajando")? "checked" : "") ?>>
-        <label for="estado">Trabajando</label> <br>
-        <input type="radio" name="estado" value="4" <?= (($datos["estado"] == "Jubilado")? "checked" : "") ?>>
-        <label for="estado">Jubilado</label> <br>
-        <input type="radio" name="estado" value="5" <?= (($datos["estado"] == "Incorrecta")? "checked" : "") ?>>
-        <label for="estado">Incorrecta</label> <br>
+        <br>
+        <label for="grosor">Grosores:</label><br>
+        <?php
+        foreach (Punto::GROSORES as $indice => $valor) {
+            //el $indice es el color en inglés
+            ?>
+            <input type="checkbox" name="<?= $indice ?>" value="<?= $valor ?>">
+            <label for="<?= $indice ?>"><?= $valor ?></label> <br>
+            <?php
 
-        <label for="estudios">Estudios:</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="0" <?= ((validaRango(0, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Sin estudios</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="1" <?= ((validaRango(1, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Primaria</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="2" <?= ((validaRango(2, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Secundaria</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="3" <?= ((validaRango(3, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Bachillerato</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="4" <?= ((validaRango(4, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Ciclo Formativo</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="5" <?= ((validaRango(5, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Universitarios</label><br>
-        <input type="checkbox" name="arrayCheck[]" value="6" <?= ((validaRango(6, $datos["estudios"], 1))?"checked":"") ?>>
-        <label for="estudios">Opción incorrecta</label><br>
+        }
 
-        <label for="hermanos">Hermanos: </label>
-        <input type="text" name="hermanos" id="hermanos" value="<?= $datos["hermanos"]; ?>"><br>
 
-        <label for="sueldo">Sueldo: </label>
-        <input type="text" name="sueldo" id="sueldo" value="<?= $datos["sueldo"]; ?>"><br>
+        ?>
+        
 
-        <input type="submit" class="boton" value="Enviar" name="enviar">
+        <input type="submit" class="boton" value="Guardar" name="guardar">
     </form>
 
     <?php
