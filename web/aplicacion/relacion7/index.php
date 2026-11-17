@@ -69,7 +69,7 @@ if (isset($_POST["guardar"])) {
         }
 
         if (!validaRango($colorSeleccionado, Punto::COLORES, 2)) {
-            $errores["colores"][] = "La coordenada Y debe estar entre 0 y 500";
+            $errores["colores"][] = "El color no existe";
         }
 
         $datos["colores"] = $colorSeleccionado;
