@@ -19,8 +19,8 @@ $barraUbicacion = [
 $errores = [];
 $datos = [
 
-    "coordX" => 0,
-    "coordY" => 0,
+    "coordX" => "",
+    "coordY" => "",
     "colores" => "",
     "grosores" => []
     
@@ -32,29 +32,49 @@ $datos = [
 if (isset($_POST["guardar"])) {
 
     if (isset($_POST["coordX"])) {
-        $coordX = intval($_POST["coordX"]);
+        $coordX = $_POST["coordX"];
 
-        if ($coordX == "") {
-            $errores["coordX"][] = "Debe indicarse una coordenada X";
+        // if ($coordX == "") {
+        //     $errores["coordX"][] = "Debe indicarse una coordenada X";
+        // }
+        
+        $expReg = "/^[0-9]+$/";
+
+        if (!validaExpresion($coordX, $expReg, "")) { //si el string no es un número:
+            $errores["coordX"][] = "Debe indicarse un número";
+        }
+        else { //si el string es un número lo pasamos a int
+            $coordX = intval($coordX);
+
+            if (!validaEntero($coordX, 0, 500, 20)) {
+                $errores["coordX"][] = "La coordenada X debe estar entre 0 y 500";
+            }
         }
 
-        if (!validaEntero($coordX, 0, 500, 20)) {
-            $errores["coordX"][] = "La coordenada X debe estar entre 0 y 500";
-        }
+        
 
         $datos["coordX"] = $coordX;
 
     }
 
     if (isset($_POST["coordY"])) {
-        $coordY = intval($_POST["coordY"]);
+        $coordY = $_POST["coordY"];
 
-        if ($coordY == "") {
-            $errores["coordY"][] = "Debe indicarse una coordenada Y";
+        // if ($coordY == "") {
+        //     $errores["coordY"][] = "Debe indicarse una coordenada Y";
+        // }
+
+        $expReg = "/^[0-9]+$/";
+
+        if (!validaExpresion($coordY, $expReg, "")) { //si el string no es un número:
+            $errores["coordY"][] = "Debe indicarse un número";
         }
+        else { //si el string es un número lo pasamos a int
+            $coordY = intval($coordY);
 
-        if (!validaEntero($coordY, 0, 500, 20)) {
-            $errores["coordY"][] = "La coordenada Y debe estar entre 0 y 500";
+            if (!validaEntero($coordY, 0, 500, 20)) {
+                $errores["coordY"][] = "La coordenada Y debe estar entre 0 y 500";
+            }
         }
 
         $datos["coordY"] = $coordY;
@@ -64,9 +84,9 @@ if (isset($_POST["guardar"])) {
     if (isset($_POST["colores"])) {
         $colorSeleccionado = mb_trim($_POST["colores"]);
 
-        if ($colorSeleccionado == "") {
-            $errores["colores"][] = "Debe indicarse un color";
-        }
+        // if ($colorSeleccionado == "") {
+        //     $errores["colores"][] = "Debe indicarse un color";
+        // }
 
         if (!validaRango($colorSeleccionado, Punto::COLORES, 2)) {
             $errores["colores"][] = "El color no existe";
@@ -77,33 +97,17 @@ if (isset($_POST["guardar"])) {
     }
 
     //CHECKBOX
-    if (isset($_POST["arrayCheck"])) {
+    if (isset($_POST["arrayCheck"])) { //si hay seleccionados:
         $arrayCheck = $_POST["arrayCheck"];        
 
-        //si no hay nada seleccionado:
-        if (count($arrayCheck) < 1) {
-            $errores["grosores"][] = "Tienes que seleccionar al menos un grosor";
-        }
 
-        //validamos que tiene marcado opciones correctas
-        // foreach ($arrayCheck as $seleccionado) {
-        //     if (!validaRango($seleccionado, $arrayPosibles, 2)) {
-        //         $errores["estudios"][] = "Tienes que seleccionar una opción de estudios correcta";
-        //     }
-        //     else {
-        //         array_push($datos["estudiosTexto"], $arrayPosibles[$seleccionado]);
-        //     }
-        // }
-
-
-        $datos["grosores"] = $arrayCheck;
-        
-
+        $datos["grosores"] = $arrayCheck; // este array guarda de forma (0 = "2") o sea, tiene índice
+                                            // y el valor es el índice de Punto::GROSORES
 
     }
-    // else {
-    //     $errores["grosores"][] = "No has seleccionado una opción de Grosor";
-    // }
+    else {
+        $errores["grosores"][] = "No has seleccionado una opción de Grosor";
+    }
 
 
 
@@ -146,12 +150,13 @@ function cuerpo(array $datos, array $errores)
 <?php
 
 
-    if (!$errores && isset($_POST["enviar"])) {
-        muestraResumen($datos);
-    }
-    else {
-        formulario($datos, $errores);
-    }
+    
+    formulario($datos, $errores);
+    
+    ?>
+
+        <a href="./pruebasPuntos.php">Pruebas Puntos</a>
+    <?php
     
 
 }
@@ -165,56 +170,57 @@ function cuerpo(array $datos, array $errores)
  */
 function formulario(array $datos, array $errores) {
 
-    if ($errores) {   //mostrar los errores 
-        echo "<div class='error'>";
-        foreach ($errores as $clave => $valor) {
-            foreach ($valor as $error)
-                echo "$clave => $error<br>" . PHP_EOL;
-        }
-        echo "</div>";
-    }
+    
     ?>
 
-    <form action="" method="post">
+    <form action="" method="post"> 
         <label for="coordX">Coordenada X: </label>
-        <input type="text" name="coordX" value="<?= $datos["coordX"] ?>"><br>
+        <input type="text" name="coordX" value="<?= $datos["coordX"] ?>">
+        <?php muestraErrores($errores, "coordX") ?><br>
 
         <label for="coordY">Coordenada Y: </label>
-        <input type="text" name="coordY" value="<?= $datos["coordY"] ?>"><br>
+        <input type="text" name="coordY" value="<?= $datos["coordY"] ?>">
+        <?php muestraErrores($errores, "coordY") ?><br><br>
 
         <label for="colores">Colores: </label>
-        <select name="colores" value="<?= $datos["colores"] ?>">
-            <?php
-            foreach (Punto::COLORES as $indice => $valor) {
-                //el $indice es el color en inglés
+        <select name="colores">
+            <option value="">Sin color</option>
+        <?php
+            
+            foreach (Punto::COLORES as $indiceIngles => $color) {
                 ?>
-                <option value="<?= $datos["colores"] ?>" ><?= $valor["nombre"] ?></option>
+                    <option value="<?= $indiceIngles ?>" <?= ($datos["colores"] == $indiceIngles? "selected": "") ?>><?= $color["nombre"] ?></option>
                 <?php
-
             }
-
-
-            ?>
+        ?>
         </select>
+        <?php muestraErrores($errores, "colores") ?>
 
         <br>
-        <label for="grosor">Grosores:</label><br>
+
+        <br>
+        <label for="grosor">Grosores:</label><?php muestraErrores($errores, "grosores") ?>
+        <br>
+
         <?php
-        $valoresCheckeados = $datos["grosores"];
+        
 
         foreach (Punto::GROSORES as $indice => $valor) {
-            //ponemos los tipos de grosores en el array
             
+            // El array $datos["colores] guarda de forma (0 = "2") o sea, tiene índice
+            // y el valor es el índice de Punto::GROSORES
             ?>
-            <input type="checkbox" name="arrayCheck[]" value="<?= $indice ?>" <?= ($valor == $datos["grosores"]?"checked":"") ?>>
+            <input type="checkbox" name="arrayCheck[]" value="<?= $indice ?>" <?= (validaRango($indice, $datos["grosores"], 1)?"checked":"") ?>>
             <label for="<?= $indice ?>"><?= $valor ?></label> <br>
             <?php
 
         }
 
-
-        ?>
+        ?> <br>
         
+        
+        
+        <br>
 
         <input type="submit" class="boton" value="Guardar" name="guardar">
     </form>
@@ -222,3 +228,21 @@ function formulario(array $datos, array $errores) {
     <?php
 }
 
+function muestraErrores (array $errores, string $nombreCampo):void {
+    if ($errores) {   //mostrar los errores 
+        
+        
+        foreach ($errores as $clave => $valor) {
+            if ($clave == $nombreCampo) {
+                echo "<span class='error'>";
+                foreach ($valor as $error)
+                    echo "$clave => $error<br>" . PHP_EOL;
+                echo "</span>";
+            }
+            
+
+            
+        }
+        
+    }
+}
