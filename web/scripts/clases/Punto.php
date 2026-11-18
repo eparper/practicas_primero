@@ -1,5 +1,5 @@
 <?php
-
+require_once RUTABASE . "/scripts/librerias/validacion.php";
 class Punto {
 
     //CONSTANTES PÚBLICAS DE CLASE
@@ -44,10 +44,15 @@ class Punto {
         $indexGrosor = $this->setGrosor($indiceGrosor);
 
         //si alguno es false, no se crea el Punto y se lanza una excepción
-        if ($coordenadaX == false || $coordenadaY == false || 
-            $nombreColorIngles == false || $indexGrosor == false) {
-            throw new Exception("NO se ha podido crear el punto");
-        }
+        if ($coordenadaX == false)
+            throw new Exception("La coordenada X es incorrecta, no se puede crear el punto");
+        if ($coordenadaY == false) 
+            throw new Exception("La coordenada Y es incorrecta, no se puede crear el punto");
+        if ($nombreColorIngles == false)
+            throw new Exception("El color es incorrecto, no se puede crear el punto");
+        if ($indexGrosor == false) 
+            throw new Exception("El grosor es incorrecto, no se puede crear el punto");
+        
     }
 
     //getters y setters
@@ -110,6 +115,29 @@ class Punto {
             $this->_grosor = $nuevoIndiceGrosor;
             return true;
         }
+    }
+
+    //PARA QUE NO TENGA SOBRECARGA:
+    //métodos mágicos para control de la sobrecarga
+    public function __set(string $name, mixed $value):void {
+        throw new \Exception("La propiedad $name no existe");
+        
+    }
+
+    public function __get(string $name):mixed {
+        throw new \Exception("La propiedad $name no existe");
+    }
+
+    public function __isset(string $name):bool
+    {
+        //throw new \Exception('Not implemented');
+        return false;
+    }
+
+    public function __unset(string $name):void
+    {
+        //throw new \Exception('Not implemented');
+        ;
     }
 
 }

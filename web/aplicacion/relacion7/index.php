@@ -92,6 +92,7 @@ if (isset($_POST["guardar"])) {
             $errores["colores"][] = "El color no existe";
         }
 
+        //color en inglés
         $datos["colores"] = $colorSeleccionado;
 
     }
@@ -115,7 +116,14 @@ if (isset($_POST["guardar"])) {
 
     if (!$errores)  //no hay errores hago la insercion 
     {
-        echo "bien";
+        $x = $datos["coordX"];
+        $y = $datos["coordY"];
+        $color = $datos["colores"]; //color en inglés
+        $grosor = $datos["grosores"]; //índice
+
+        $obPunto = new Punto($x, $y, $color, $grosor);
+
+        $puntos[] = $obPunto;
     }
 }
 
@@ -128,7 +136,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 7", $barraUbicacion);
-cuerpo($datos, $errores);  //llamo a la vista
+cuerpo($datos, $errores, $puntos);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -141,7 +149,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(array $datos, array $errores)
+function cuerpo(array $datos, array $errores, array $puntos)
 {
 ?>
     <br><br>
@@ -156,6 +164,17 @@ function cuerpo(array $datos, array $errores)
     ?>
 
         <a href="./pruebasPuntos.php">Pruebas Puntos</a>
+    
+
+    <textarea name="cajaTexto"><?php foreach ($puntos as $punto) {
+
+            echo "Coordenada x: ". $punto->getX() . ". Coordenada Y: " .
+                    $punto->getY() . ". Color: " . $punto->getColor() . 
+                    ". Grosor: " . $punto->getGrosor() . ".\n";
+        }
+
+        ?>
+    </textarea>
     <?php
     
 
@@ -207,7 +226,7 @@ function formulario(array $datos, array $errores) {
 
         foreach (Punto::GROSORES as $indice => $valor) {
             
-            // El array $datos["colores] guarda de forma (0 = "2") o sea, tiene índice
+            // El array $datos["grosores"] guarda de forma (0 = "2") o sea, tiene índice
             // y el valor es el índice de Punto::GROSORES
             ?>
             <input type="checkbox" name="arrayCheck[]" value="<?= $indice ?>" <?= (validaRango($indice, $datos["grosores"], 1)?"checked":"") ?>>
@@ -224,6 +243,8 @@ function formulario(array $datos, array $errores) {
 
         <input type="submit" class="boton" value="Guardar" name="guardar">
     </form>
+
+    
 
     <?php
 }

@@ -62,11 +62,15 @@ function cuerpo()
             echo "El color:" . $punto->getColor() . "<br>".PHP_EOL;
             echo "El grosor:" . $punto->getGrosor() . "<br>".PHP_EOL;
 
-            $punto = new Punto(2000, 200000, "black", 2);
-            echo "La coordenada X:" . $punto->getX() . "<br>".PHP_EOL;
-            echo "La coordenada Y:" . $punto->getY() . "<br>".PHP_EOL;
-            echo "El color:" . $punto->getColor() . "<br>".PHP_EOL;
-            echo "El grosor:" . $punto->getGrosor() . "<br>".PHP_EOL;
+            // $punto = new Punto(5, 200000, "black", 0); //mal
+            // echo "La coordenada X:" . $punto->getX() . "<br>".PHP_EOL;
+            // echo "La coordenada Y:" . $punto->getY() . "<br>".PHP_EOL;
+            // echo "El color:" . $punto->getColor() . "<br>".PHP_EOL;
+            // echo "El grosor:" . $punto->getGrosor() . "<br>".PHP_EOL;
+
+            //probando que no se puedan crear propiedades dinámicas
+            $punto->saludo = "hola";
+            
             
         }  
     catch (Exception $e)  

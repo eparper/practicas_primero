@@ -43,5 +43,6 @@ function cuerpo()
     <a href="pagFormulario.php">Formulario</a><br>
     <a href="cargapagina.php">carga página</a><br>
     <a href="otrapagina.php">otra página</a><br>
+    <a href="pruebaficheros.php">FICHEROS</a><br>
 <?php
 }
