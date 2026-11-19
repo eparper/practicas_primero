@@ -26,35 +26,12 @@ $datos = [
     
 ];
 
-//creamos imagen
-$ip = $_SERVER["REMOTE_ADDR"];
+//nombre archivo
+$nombreArchivo = creaNombreArchivoSinExtension()  . ".jpg";
 
-$ipConGuiones = mb_ereg_replace("\.", "_", $ip);
-
-$cadenaNavegador = $_SERVER["HTTP_USER_AGENT"];
-echo $cadenaNavegador;
-
-$resultadosNavegadores = [];
-$navegador = "";
-
-if (preg_match("[Edg]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
-    $navegador = "edge";
-    
-else if (preg_match("[Firefox]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
-    $navegador = "firefox";
-
-//safari es si no pone Chrome
-else if (preg_match("[^Chrome]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
-    $navegador = "safari";
-
-else if (preg_match("[Chrome]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
-    $navegador = "chrome";
-
-$nombreArchivo = $ipConGuiones . $navegador . ".jpg";
-
-echo $nombreArchivo;
-
-recargarImagen($nombreArchivo);
+//creamos imagen si no existe
+if (!file_exists(RUTABASE . "/imagenes/puntos/". $nombreArchivo))
+    recargarImagen($nombreArchivo, $puntos);
 
 //comprobar si se ha dado a insertar 
 if (isset($_POST["guardar"])) {
@@ -151,7 +128,15 @@ if (isset($_POST["guardar"])) {
 
         $obPunto = new Punto($x, $y, $color, $grosor);
 
+        //añadimos el punto al array de la cabecera
         $puntos[] = $obPunto;
+
+        //luego añadimos el array al .dat de /ficheros
+        $nombreFichero = creaNombreArchivoSinExtension() . ".dat";
+
+        escribirAFichero($nombreFichero, $puntos);
+
+        recargarImagen($nombreArchivo, $puntos);
     }
 }
 
@@ -203,8 +188,10 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
         ?>
     </textarea>
 
-    <br>
-    <img src="/web/imagenes/puntos/<?php echo $nombreArchivo ?>" alt="Imagen puntos">
+    <br><br>
+    <!-- LA RAÍZ ES WEB -->
+    <img src="/imagenes/puntos/<?php echo $nombreArchivo ?>" alt="Imagen puntos">
+    
     <br>
 
     <a href="./pruebasPuntos.php">Pruebas Puntos</a>
@@ -301,14 +288,110 @@ function muestraErrores (array $errores, string $nombreCampo):void {
     }
 }
 
-function recargarImagen(string $nombreImagen) : void {
+function recargarImagen(string $nombreImagen, array $arrayPuntos) : void {
 
     $imagen = imagecreatetruecolor(500, 500); //es este tamaño porque los puntos no van más allá de 500
     $color = imagecolorallocate($imagen, 255, 255, 255);
     imagefill($imagen, 499, 499, $color); //esto es como un cubo del paint, pone el cubo en las coordenadas que le digas
                                         //es lo mismo excepto si le pones 500 porque ya se saldría de la imagen
 
-    //la ponemos en la ruta 
-    imagejpeg($imagen, RUTABASE . "/imagenes/puntos/".$nombreImagen); //nombre imagen con extensión
+    //AÑADIMOS LOS PUNTOS DEL ARRAY DE LA CABECERA
+    if ($arrayPuntos) { //si existe nuestro array de puntos:
+        foreach ($arrayPuntos as $punto) {
+            $rgbArrayPunto = Punto::COLORES[$punto->getColor()]["rgb"];
 
+            //esta función crea un color trabajando sobre esta imagen pero no lo pone
+            $colorPunto = imagecolorallocate($imagen, $rgbArrayPunto[0], $rgbArrayPunto[1], $rgbArrayPunto[2]);
+
+            imagefilledellipse($imagen, $punto->getX(), $punto->getY(), 
+                            $punto->getGrosor() * 100, $punto->getGrosor() * 100,
+                            $colorPunto); //primero le ponemos el color blanco por defecto
+
+            
+            
+        }
+    }
+
+    //marco negro 
+    $color = imagecolorallocate($imagen, 0, 0, 0);
+    imagerectangle($imagen, 0, 0, 499, 499, $color); //499 porque a 500 no llegaría, ya que el 0,0 también es una coordenada
+
+    //la ponemos en la ruta 
+    $ruta = "/imagenes/puntos/".$nombreImagen;
+    imagejpeg($imagen, RUTABASE . $ruta); //nombre imagen con extensión
+
+}
+
+function creaNombreArchivoSinExtension() : string {
+    $ip = $_SERVER["REMOTE_ADDR"];
+
+    $ipConGuiones = mb_ereg_replace("\.", "_", $ip) . "_";
+
+    $cadenaNavegador = $_SERVER["HTTP_USER_AGENT"];
+    echo $cadenaNavegador;
+
+    $resultadosNavegadores = [];
+    $navegador = "";
+
+    if (preg_match("[Edg]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+        $navegador = "edge";
+        
+    else if (preg_match("[Firefox]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+        $navegador = "firefox";
+
+    //safari es si no pone Chrome
+    else if (preg_match("[^Chrome]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+        $navegador = "safari";
+
+    else if (preg_match("[Chrome]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+        $navegador = "chrome";
+
+    return $ipConGuiones . $navegador;
+}
+
+/** 
+ * funcion para escribir en un fichero 
+ * @param string $nombre nombre del fichero 
+ * @param mixed $datos valores  
+ * @return bool devuelve si ejecuta correctamente o hay algún error 
+ */
+function escribirAFichero(string $nombre, ?array $datos = null): bool
+{
+    //ruta en la que se guardará el fichero 
+    //$ruta=$_SERVER["DOCUMENT_ROOT"]."/ficheros"; 
+    $ruta = RUTABASE . "/ficheros";
+
+    //si no existe la ruta se crea 
+    if (!file_exists($ruta))
+        mkdir($ruta);
+
+    //LE CONCATENAMOS EL NOMBRE DEL FICHERO CON LA EXTENSIÓN
+    $ruta .= "/$nombre";
+
+    // if (!isset($datos)) {
+    //     return false;
+    // }
+
+    //se abre el fichero para escritura 
+    //si existe se borra el contenido 
+    $fic = fopen($ruta, "w");  //w modo escritura
+    if (!$fic) //si no se puede abrir, se devuelve false porque se ha producido un error
+        return false;
+
+    //se recorre el array con los datos 
+    foreach ($datos as $punto) //recorre las diferentes filas
+    {
+        $linea = "";
+        
+        $linea .= $punto->getCoordX() . " ; ";
+        
+        $linea .= "\r\n";
+
+        //se escribe en el fichero una linea 
+        fputs($fic, $linea);
+    }
+
+    //se cierra el fichero 
+    fclose($fic);
+    return true;
 }
