@@ -26,7 +26,35 @@ $datos = [
     
 ];
 
+//creamos imagen
+$ip = $_SERVER["REMOTE_ADDR"];
 
+$ipConGuiones = mb_ereg_replace("\.", "_", $ip);
+
+$cadenaNavegador = $_SERVER["HTTP_USER_AGENT"];
+echo $cadenaNavegador;
+
+$resultadosNavegadores = [];
+$navegador = "";
+
+if (preg_match("[Edg]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+    $navegador = "edge";
+    
+else if (preg_match("[Firefox]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+    $navegador = "firefox";
+
+//safari es si no pone Chrome
+else if (preg_match("[^Chrome]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+    $navegador = "safari";
+
+else if (preg_match("[Chrome]", $cadenaNavegador, $resultadosNavegadores, PREG_OFFSET_CAPTURE))
+    $navegador = "chrome";
+
+$nombreArchivo = $ipConGuiones . $navegador . ".jpg";
+
+echo $nombreArchivo;
+
+recargarImagen($nombreArchivo);
 
 //comprobar si se ha dado a insertar 
 if (isset($_POST["guardar"])) {
@@ -128,7 +156,6 @@ if (isset($_POST["guardar"])) {
 }
 
 
-
 //-------------------------
 
 //dibuja la plantilla de la vista
@@ -136,7 +163,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("RELACIÓN 7", $barraUbicacion);
-cuerpo($datos, $errores, $puntos);  //llamo a la vista
+cuerpo($datos, $errores, $puntos, $nombreArchivo);  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
@@ -149,7 +176,7 @@ function cabecera()
 }
 
 //vista
-function cuerpo(array $datos, array $errores, array $puntos)
+function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchivo)
 {
 ?>
     <br><br>
@@ -177,6 +204,9 @@ function cuerpo(array $datos, array $errores, array $puntos)
     </textarea>
 
     <br>
+    <img src="/web/imagenes/puntos/<?php echo $nombreArchivo ?>" alt="Imagen puntos">
+    <br>
+
     <a href="./pruebasPuntos.php">Pruebas Puntos</a>
     <?php
     
@@ -269,4 +299,16 @@ function muestraErrores (array $errores, string $nombreCampo):void {
         }
         
     }
+}
+
+function recargarImagen(string $nombreImagen) : void {
+
+    $imagen = imagecreatetruecolor(500, 500); //es este tamaño porque los puntos no van más allá de 500
+    $color = imagecolorallocate($imagen, 255, 255, 255);
+    imagefill($imagen, 499, 499, $color); //esto es como un cubo del paint, pone el cubo en las coordenadas que le digas
+                                        //es lo mismo excepto si le pones 500 porque ya se saldría de la imagen
+
+    //la ponemos en la ruta 
+    imagejpeg($imagen, RUTABASE . "/imagenes/puntos/".$nombreImagen); //nombre imagen con extensión
+
 }
