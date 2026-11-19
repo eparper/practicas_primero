@@ -163,10 +163,10 @@ function cuerpo(array $datos, array $errores, array $puntos)
     
     ?>
 
-        <a href="./pruebasPuntos.php">Pruebas Puntos</a>
+    <br>
     
 
-    <textarea name="cajaTexto"><?php foreach ($puntos as $punto) {
+    <textarea name="cajaTexto" cols="65" rows="10"><?php foreach ($puntos as $punto) {
 
             echo "Coordenada x: ". $punto->getX() . ". Coordenada Y: " .
                     $punto->getY() . ". Color: " . $punto->getColor() . 
@@ -175,6 +175,9 @@ function cuerpo(array $datos, array $errores, array $puntos)
 
         ?>
     </textarea>
+
+    <br>
+    <a href="./pruebasPuntos.php">Pruebas Puntos</a>
     <?php
     
 
