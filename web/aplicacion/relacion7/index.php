@@ -28,10 +28,20 @@ $datos = [
 
 //nombre archivo
 $nombreArchivo = creaNombreArchivoSinExtension()  . ".jpg";
+$nombreArchivoDat = creaNombreArchivoSinExtension()  . ".dat";
+
+
 
 //creamos imagen si no existe
-if (!file_exists(RUTABASE . "/imagenes/puntos/". $nombreArchivo))
+if (!file_exists(RUTABASE . "/imagenes/puntos/". $nombreArchivo)) {
     recargarImagen($nombreArchivo, $puntos);
+}
+
+//leemos de fichero si existe
+if (file_exists(RUTABASE . "/ficheros/". $nombreArchivoDat)) {
+    leerDeFichero($nombreArchivoDat, $puntos);
+    recargarImagen($nombreArchivo, $puntos);
+}
 
 //comprobar si se ha dado a insertar 
 if (isset($_POST["guardar"])) {
@@ -124,7 +134,7 @@ if (isset($_POST["guardar"])) {
         $x = $datos["coordX"];
         $y = $datos["coordY"];
         $color = $datos["colores"]; //color en inglés
-        $grosor = $datos["grosores"]; //índice
+        $grosor = $datos["grosores"][0]; //índice
 
         $obPunto = new Punto($x, $y, $color, $grosor);
 
@@ -137,6 +147,10 @@ if (isset($_POST["guardar"])) {
         escribirAFichero($nombreFichero, $puntos);
 
         recargarImagen($nombreArchivo, $puntos);
+
+        //redirigir para limpiar el POST y evitar duplicados al pulsar F5 (antes de que cabecera imprima algo)
+        header("Location: ./index.php");
+        exit;
     }
 }
 
@@ -172,15 +186,17 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
 
     
     formulario($datos, $errores);
+    echo "<br>".PHP_EOL;
+    formularioCombo($puntos);
     
     ?>
 
     <br>
     
 
-    <textarea name="cajaTexto" cols="65" rows="10"><?php foreach ($puntos as $punto) {
+    <textarea name="cajaTexto" cols="75" rows="10" readonly><?php foreach ($puntos as $indice => $punto) {
 
-            echo "Coordenada x: ". $punto->getX() . ". Coordenada Y: " .
+            echo "Punto: ".$indice.". Coordenada x: ". $punto->getX() . ". Coordenada Y: " .
                     $punto->getY() . ". Color: " . $punto->getColor() . 
                     ". Grosor: " . $punto->getGrosor() . ".\n";
         }
@@ -200,6 +216,30 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
 
 }
 
+function formularioCombo(array $arrayPuntos) {
+
+    ?>
+
+    <form action="./index.php" method="post"> 
+        <select name="comboPuntos">
+            <?php
+                foreach ($arrayPuntos as $indice => $punto) {
+                    ?>
+                        <option value="<?= $indice ?>">
+                            <?php echo "Punto " . $indice . " - x:".$punto->getX()." - y:".
+                                        $punto->getY()." - ".$punto->getColor(). " - ".$punto->getGrosor(); ?>
+                        </option>
+
+                    <?php
+                }
+            ?>
+        </select>
+        <input type="submit" value="">
+    </form>
+
+    <?php
+}
+
 /**
  * Función que muestra el formulario
  *
@@ -212,7 +252,7 @@ function formulario(array $datos, array $errores) {
     
     ?>
 
-    <form action="" method="post"> 
+    <form action="./index.php" method="post"> 
         <label for="coordX">Coordenada X: </label>
         <input type="text" name="coordX" value="<?= $datos["coordX"] ?>">
         <?php muestraErrores($errores, "coordX") ?><br>
@@ -249,7 +289,7 @@ function formulario(array $datos, array $errores) {
             // El array $datos["grosores"] guarda de forma (0 = "2") o sea, tiene índice
             // y el valor es el índice de Punto::GROSORES
             ?>
-            <input type="checkbox" name="arrayCheck[]" value="<?= $indice ?>" <?= (validaRango($indice, $datos["grosores"], 1)?"checked":"") ?>>
+            <input type="radio" name="arrayCheck[]" value="<?= $indice ?>" <?= (validaRango($indice, $datos["grosores"], 1)?"checked":"") ?>>
             <label for="<?= $indice ?>"><?= $valor ?></label> <br>
             <?php
 
@@ -304,7 +344,7 @@ function recargarImagen(string $nombreImagen, array $arrayPuntos) : void {
             $colorPunto = imagecolorallocate($imagen, $rgbArrayPunto[0], $rgbArrayPunto[1], $rgbArrayPunto[2]);
 
             imagefilledellipse($imagen, $punto->getX(), $punto->getY(), 
-                            $punto->getGrosor() * 100, $punto->getGrosor() * 100,
+                            $punto->getGrosor() * 10, $punto->getGrosor() * 10,
                             $colorPunto); //primero le ponemos el color blanco por defecto
 
             
@@ -328,7 +368,7 @@ function creaNombreArchivoSinExtension() : string {
     $ipConGuiones = mb_ereg_replace("\.", "_", $ip) . "_";
 
     $cadenaNavegador = $_SERVER["HTTP_USER_AGENT"];
-    echo $cadenaNavegador;
+    
 
     $resultadosNavegadores = [];
     $navegador = "";
@@ -374,7 +414,7 @@ function escribirAFichero(string $nombre, ?array $datos = null): bool
 
     //se abre el fichero para escritura 
     //si existe se borra el contenido 
-    $fic = fopen($ruta, "w");  //w modo escritura
+    $fic = fopen($ruta, "w");  //a modo escritura colocando el puntero al final
     if (!$fic) //si no se puede abrir, se devuelve false porque se ha producido un error
         return false;
 
@@ -383,7 +423,8 @@ function escribirAFichero(string $nombre, ?array $datos = null): bool
     {
         $linea = "";
         
-        $linea .= $punto->getCoordX() . " ; ";
+        $linea .= $punto->getX() . " ; " . $punto->getY() . " ; " . 
+                    $punto->getColor() . " ; " . $punto->getGrosor();
         
         $linea .= "\r\n";
 
@@ -393,5 +434,61 @@ function escribirAFichero(string $nombre, ?array $datos = null): bool
 
     //se cierra el fichero 
     fclose($fic);
+    return true;
+}
+
+/** 
+ * funcion para leer de un fichero 
+ * @paramstring $nombre nombre del fichero 
+ * @parammixed $datos valores  
+ * @returnbool devuelve si ejecuta correctamente o hay algún error 
+ */
+function leerDeFichero(string $nombre, array &$datos): bool
+{
+    //ruta en la que se guardará el fichero 
+    //$ruta=$_SERVER["DOCUMENT_ROOT"]."/ficheros"; 
+    $ruta = RUTABASE . "/ficheros";
+
+    //si no existe la ruta se crea 
+    if (!file_exists($ruta))
+        mkdir($ruta);
+
+    //LE CONCATENAMOS EL NOMBRE DEL FICHERO CON LA EXTENSIÓN
+    $ruta .= "/$nombre";
+
+    if (!isset($datos)) {
+        return false;
+    }
+    //se abre el fichero para lectura 
+    //debe existir 
+    $fic = fopen($ruta, "r");
+    if (!$fic)
+        return false;
+
+    //borro el contenido del array 
+    foreach ($datos as $pos => $valor) {
+        unset($datos[$pos]);
+    }
+
+    //leo el fichero linea a linea 
+    while ($linea = fgets($fic)) {
+        $linea = str_replace("\r", "", $linea);
+        $linea = str_replace("\n", "", $linea);
+
+        if ($linea != "") {
+            //$linea = explode(" ; ", $linea);
+
+            //creamos el punto
+            $partesLinea = mb_split(" ; ", $linea); //tiene 4 partes (x, y, color, grosor)
+
+            $obPunto = new Punto($partesLinea[0], $partesLinea[1], $partesLinea[2], $partesLinea[3]);
+
+            $datos[] = $obPunto;
+        }
+    }
+
+    //se cierra el fichero 
+    fclose($fic);
+
     return true;
 }
