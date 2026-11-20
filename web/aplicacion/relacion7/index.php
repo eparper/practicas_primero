@@ -43,6 +43,26 @@ if (file_exists(RUTABASE . "/ficheros/". $nombreArchivoDat)) {
     recargarImagen($nombreArchivo, $puntos);
 }
 
+//comprobar si se ha dado a borrar
+if (isset($_POST["borrar"])) {
+
+    //comprobamos si existe el select comboPuntos
+    if (isset($_POST["comboPuntos"])) {
+        $valorOptionSeleccionado = $_POST["comboPuntos"];
+
+        if (!validaRango($valorOptionSeleccionado, $puntos, 2)) { //comprobamos en las claves
+            $errores["comboListaPuntos"][] = "No existe el punto";
+        }
+
+        //si está bien, quitamos el punto del array:
+        unset($puntos[$valorOptionSeleccionado]); //este unset NO es el de métodos mágicos de punto
+        recargarImagen($nombreArchivo, $puntos);
+        escribirAFichero($nombreArchivoDat, $puntos);
+        //reindexar el array: AQUÍ
+    }
+
+}
+
 //comprobar si se ha dado a insertar 
 if (isset($_POST["guardar"])) {
 
@@ -187,7 +207,7 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
     
     formulario($datos, $errores);
     echo "<br>".PHP_EOL;
-    formularioCombo($puntos);
+    formularioCombo($puntos, $errores);
     
     ?>
 
@@ -216,12 +236,14 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
 
 }
 
-function formularioCombo(array $arrayPuntos) {
+function formularioCombo(array $arrayPuntos, array $errores) {
 
     ?>
 
     <form action="./index.php" method="post"> 
-        <select name="comboPuntos">
+        <select name="comboPuntos"> 
+            
+            <option value="">Sin opción</option>
             <?php
                 foreach ($arrayPuntos as $indice => $punto) {
                     ?>
@@ -233,8 +255,8 @@ function formularioCombo(array $arrayPuntos) {
                     <?php
                 }
             ?>
-        </select>
-        <input type="submit" value="">
+        </select> <?php muestraErrores($errores, "comboListaPuntos") ?><br>
+        <input type="submit" value="Borrar" name="borrar">
     </form>
 
     <?php
