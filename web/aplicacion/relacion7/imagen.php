@@ -17,11 +17,13 @@ $barraUbicacion = [
 ];
 
 //-------------------------
-
+//creamos el nombre del archivo con la extensión .dat
 $nombreArchivoDat = creaNombreArchivoSinExtension()  . ".dat";
-leerDeFichero($nombreArchivoDat, $puntos);
 
+//leemos del fichero .dat y recogemos los puntos en el array
+leerDeFichero($nombreArchivoDat, $puntos); 
 
+//se crea la imagen con los puntos y se descarga al vuelo
 crearImagenAlVuelo($puntos);
 //-------------------------
 
@@ -49,9 +51,9 @@ function cuerpo()
 
 /** 
  * funcion para leer de un fichero 
- * @paramstring $nombre nombre del fichero 
- * @parammixed $datos valores  
- * @returnbool devuelve si ejecuta correctamente o hay algún error 
+ * @param string $nombre nombre del fichero 
+ * @param mixed $datos valores  
+ * @return bool devuelve si ejecuta correctamente o hay algún error 
  */
 function leerDeFichero(string $nombre, array &$datos): bool
 {
@@ -103,6 +105,12 @@ function leerDeFichero(string $nombre, array &$datos): bool
     return true;
 }
 
+/**
+ * Función que crea la imagen y la descargar al vuelo
+ *
+ * @param array $puntos Array puntos que se le pasa para recorrerlos y que se muestren en la imagen
+ * @return void
+ */
 function crearImagenAlVuelo(array $puntos) {
 
 
@@ -146,6 +154,11 @@ function crearImagenAlVuelo(array $puntos) {
     exit;
 }
 
+/**
+ * Esta función crea el nombre del archivo (IP + nombre del navegador) pero sin extensión
+ *
+ * @return string Devuelve el nombre del archivo en una cadena
+ */
 function creaNombreArchivoSinExtension() : string {
     $ip = $_SERVER["REMOTE_ADDR"];
 

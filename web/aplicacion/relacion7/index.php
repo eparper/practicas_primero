@@ -37,7 +37,7 @@ if (!file_exists(RUTABASE . "/imagenes/puntos/". $nombreArchivo)) {
     recargarImagen($nombreArchivo, $puntos);
 }
 
-//leemos de fichero si existe
+//leemos de fichero si existe el .dat
 if (file_exists(RUTABASE . "/ficheros/". $nombreArchivoDat)) {
     leerDeFichero($nombreArchivoDat, $puntos);
     recargarImagen($nombreArchivo, $puntos);
@@ -65,6 +65,7 @@ if (isset($_POST["borrar"])) {
 
 }
 
+//comprobar si se ha dado a descargar
 if (isset($_POST["descargar"])) {
 
     //redirigir a imagen.php
@@ -158,7 +159,7 @@ if (isset($_POST["guardar"])) {
 
   
 
-    if (!$errores)  //no hay errores hago la insercion 
+    if (!$errores)  //no hay errores, hago la insercion 
     {
         $x = $datos["coordX"];
         $y = $datos["coordY"];
@@ -183,6 +184,7 @@ if (isset($_POST["guardar"])) {
     }
 }
 
+//comprobar si se ha dado a subir fichero
 if (isset($_POST["subida"])) 
     {
         //recojo el nombre
@@ -201,7 +203,7 @@ if (isset($_POST["subida"]))
                 $errores["archivo"][] = "El fichero indicado no es .txt";
             }
         }
-        if (!$errores) {
+        if (!$errores) { //si no hay errores
             
             $nombreSubida=RUTABASE . "/ficheros/"; 
             $nombreSubida=$nombreSubida.$_FILES['archivo']['name']; 
@@ -251,9 +253,9 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
 
 
     
-    formulario($datos, $errores);
+    formulario($datos, $errores); //imprimo el formulario de crear puntos
     echo "<br>".PHP_EOL;
-    formularioCombo($puntos, $errores);
+    formularioCombo($puntos, $errores); //imprimo el formulario de borrar puntos
     
     ?>
 
@@ -271,13 +273,13 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
     </textarea>
 
     <br><br>
-    <!-- LA RAÍZ ES WEB -->
+    <!-- LA RAÍZ ES WEB, así que empezamos en /imagenes, que está en la raíz -->
     <img src="/imagenes/puntos/<?php echo $nombreArchivo ?>" alt="Imagen puntos">
     
     <br>
 
     
-
+    <!-- FORMULARIO DE ENVIAR EL ARCHIVO -->
     <form enctype="multipart/form-data" action="" method="post">
         <!--MAX_FILE_SIZE debe preceder al campo de entrada de archivo-->
         <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
@@ -293,6 +295,13 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
 
 }
 
+/**
+ * Función que pinta el formulario del combo de borrar puntos
+ *
+ * @param array $arrayPuntos Array de puntos que se le pasa para mostrarlos en el combo
+ * @param array $errores Matriz de errores para mostrar los errores del formulario
+ * @return void
+ */
 function formularioCombo(array $arrayPuntos, array $errores) {
 
     ?>
@@ -389,6 +398,13 @@ function formulario(array $datos, array $errores) {
     <?php
 }
 
+/**
+ * Función que pinta un span con los errores para ponerlos al lado de cada campo
+ *
+ * @param array $errores Matriz de errores que se le pasa
+ * @param string $nombreCampo Nombre del campo en la matriz para poder encontrarlo e imprimir el error correcto
+ * @return void
+ */
 function muestraErrores (array $errores, string $nombreCampo):void {
     if ($errores) {   //mostrar los errores 
         
@@ -408,6 +424,14 @@ function muestraErrores (array $errores, string $nombreCampo):void {
     }
 }
 
+
+/**
+ * Función que crea la imagen con los puntos o la recarga
+ *
+ * @param string $nombreImagen El nombre que le quieras poner a tu archivo de imagen
+ * @param array $arrayPuntos Array de puntos a pintar en la imagen
+ * @return void
+ */
 function recargarImagen(string $nombreImagen, array $arrayPuntos) : void {
 
     $imagen = imagecreatetruecolor(500, 500); //es este tamaño porque los puntos no van más allá de 500
@@ -442,6 +466,11 @@ function recargarImagen(string $nombreImagen, array $arrayPuntos) : void {
 
 }
 
+/**
+ * Función que crea el nombre del archivo en formato: IP + nombre del navegador
+ *
+ * @return string Devuelve una cadena con el nombre sin extensión
+ */
 function creaNombreArchivoSinExtension() : string {
     $ip = $_SERVER["REMOTE_ADDR"];
 
@@ -470,7 +499,7 @@ function creaNombreArchivoSinExtension() : string {
 }
 
 /** 
- * funcion para escribir en un fichero 
+ * Función para escribir en un fichero 
  * @param string $nombre nombre del fichero 
  * @param mixed $datos valores  
  * @return bool devuelve si ejecuta correctamente o hay algún error 
@@ -518,7 +547,7 @@ function escribirAFichero(string $nombre, ?array $datos = null): bool
 }
 
 /** 
- * funcion para leer de un fichero 
+ * Función para leer de un fichero 
  * @paramstring $nombre nombre del fichero 
  * @parammixed $datos valores  
  * @returnbool devuelve si ejecuta correctamente o hay algún error 

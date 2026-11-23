@@ -35,6 +35,14 @@ class Punto {
     private string $_color = "black";
     private int $_grosor = 1;
 
+    /**
+     * Constructor público de Punto
+     *
+     * @param integer $coordX Coordenada x del Punto
+     * @param integer $coordY Coordenada y del Punto
+     * @param string $colorIngles Color en inglés del Punto
+     * @param integer $indiceGrosor Grosor del Punto (1, 2 o 3)
+     */
     public function __construct(int $coordX = 5, int $coordY = 10, 
                                 string $colorIngles = "black", int $indiceGrosor = 1)
     {
