@@ -49,3 +49,8 @@ spl_autoload_register(function ($clase){
 include(RUTABASE."/aplicacion/plantilla/plantilla.php");
 
 //creo todos los objetos que necesita mi aplicación
+$puntos = [];
+
+// $puntos[] = new Punto(10, 10, "black", 1);
+// $puntos[] = new Punto(15, 15, "green", 2);
+// $puntos[] = new Punto(20, 20, "red", 3);

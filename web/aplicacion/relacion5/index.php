@@ -42,9 +42,9 @@ if (isset($_POST["enviar"])) {
     if (isset($_POST["nombre"])) {
         $nombre = mb_strtoupper(mb_trim($_POST["nombre"]));
 
-        if ($nombre == "") {
-            $errores["nombre"][] = "Debe indicarse un nombre";
-        }
+        // if ($nombre == "") {
+        //     $errores["nombre"][] = "Debe indicarse un nombre";
+        // }
 
         $primeraLetra = mb_substr($nombre, 0, 1);
 
@@ -63,34 +63,44 @@ if (isset($_POST["enviar"])) {
     if (isset($_POST["contrasenia"])) {
         $contrasenia = $_POST["contrasenia"];
 
-        if (!validaCadena($contrasenia, 15, "contrasenia")) {
-            $errores["contrasenia"][] = "La contraseña no puede tener una longitud mayor de 15";
+        if ($contrasenia !== "") {
+            if (!validaCadena($contrasenia, 15, "contrasenia")) {
+                $errores["contrasenia"][] = "La contraseña no puede tener una longitud mayor de 15";
+            }
+
+            $longitudContra = mb_strlen($contrasenia);
+
+            if ($longitudContra < 8) {
+                $errores["contrasenia"][] = "La contraseña no puede tener una longitud menor de 8";
+            }
+
+            $regExpContra = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/";
+
+            if (!validaExpresion($contrasenia, $regExpContra, "12345678&aB")) {
+                $errores["contrasenia"][] = "La contraseña debe tener una mayúscula, una minúscula, un número y un caracter especial";
+            }
+
+            $datos["contrasenia"] = $contrasenia;
         }
-
-        $longitudContra = mb_strlen($contrasenia);
-
-        if ($longitudContra < 8) {
-            $errores["contrasenia"][] = "La contraseña no puede tener una longitud menor de 8";
-        }
-
-        $regExpContra = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&\-_+])[A-Za-z\d$@!%*?&\-_+]{8,15}$/";
-
-        if (!validaExpresion($contrasenia, $regExpContra, "12345678&aB")) {
-            $errores["contrasenia"][] = "La contraseña debe tener una mayúscula, una minúscula, un número y un caracter especial";
-        }
-
-        $datos["contrasenia"] = $contrasenia;
+        
 
         //repetir contraseña
         if (isset($_POST["contrasenia2"])) {
 
             $contrasenia2 = $_POST["contrasenia2"];
 
-            if ($contrasenia2 !== $contrasenia) {
-                $errores["contrasenia2"][] = "Las contraseñas deben coincidir";
-            }
+            if ($contrasenia !== "") {
 
-            $datos["contrasenia2"] = $contrasenia2;
+                if (!validaCadena($contrasenia2, 15, "contrasenia")) {
+                    $errores["contrasenia2"][] = "La contraseña no puede tener una longitud mayor de 15";
+                }
+
+                if ($contrasenia2 !== $contrasenia) {
+                    $errores["contrasenia2"][] = "Las contraseñas deben coincidir";
+                }
+
+                $datos["contrasenia2"] = $contrasenia2;
+            }
         }
 
     }
@@ -98,19 +108,24 @@ if (isset($_POST["enviar"])) {
     if (isset($_POST["fechaNacimiento"])) {
         $fechaNac = $_POST["fechaNacimiento"];
 
-        if (!validaFecha($fechaNac, "01/01/2000")) {
-            $errores["fechaNacimiento"][] = "La fecha de nacimiento es incorrecta";
+
+        if ($fechaNac !== "") {
+            if (!validaFecha($fechaNac, "01/01/2000")) {
+                $errores["fechaNacimiento"][] = "La fecha de nacimiento es incorrecta";
+            }
+
+            //controlamos que la fecha sea menor que la actual
+            $date = new DateTime();
+            $fechaNacimiento = DateTime::createFromFormat("d/m/Y", $fechaNac);
+
+            if ($fechaNacimiento > $date) {
+                $errores["fechaNacimiento"][] = "La fecha de nacimiento no puede ser posterior a hoy";
+            }
+
+            $datos["fechaNacimiento"] = $fechaNac;
         }
-
-        //controlamos que la fecha sea menor que la actual
-        $date = new DateTime();
-        $fechaNacimiento = DateTime::createFromFormat("d/m/Y", $fechaNac);
-
-        if ($fechaNacimiento > $date) {
-            $errores["fechaNacimiento"][] = "La fecha de nacimiento no puede ser posterior a hoy";
-        }
-
-        $datos["fechaNacimiento"] = $fechaNac;
+            
+        
 
     }
 
@@ -118,18 +133,27 @@ if (isset($_POST["enviar"])) {
         $fechaCarnetDia = $_POST["fechaCarnetDia"];
         $fechaCarnetMes = $_POST["fechaCarnetMes"];
         $fechaCarnetAnio = $_POST["fechaCarnetAnio"];
+        $fechaCompleta = "";
 
-        $fechaCompleta = $fechaCarnetDia . "/" . $fechaCarnetMes . "/" . $fechaCarnetAnio;
-        
-        if (!validaFecha($fechaCompleta, "12/02/2026")) {
-            $errores["fechaCarnet"][] = "La fecha de carnet es incorrecta";
+        if ($fechaCarnetDia !== "" && $fechaCarnetMes !== "" && $fechaCarnetAnio !== "") {
+            $fechaCompleta = $fechaCarnetDia . "/" . $fechaCarnetMes . "/" . $fechaCarnetAnio;
+            
         }
+        
+          
+        if ($fechaCompleta !== "") {
+            if (!validaFecha($fechaCompleta, "12/02/2026")) {
+                $errores["fechaCarnet"][] = "La fecha de carnet es incorrecta";
+            }
+        }
+
+        
 
         $datos["fechaCarnetDia"] = $fechaCarnetDia;
         $datos["fechaCarnetMes"] = $fechaCarnetMes;
         $datos["fechaCarnetAnio"] = $fechaCarnetAnio;
 
-        if (isset($_POST["fechaNacimiento"])) {
+        if (isset($_POST["fechaNacimiento"]) && $fechaCompleta !== "") {
             //controlamos que la fecha sea menor que la fecha de nacimiento más 18 años
             $fechaNacimiento = DateTime::createFromFormat("d/m/Y", $datos["fechaNacimiento"]);
             $fechaCarnet = DateTime::createFromFormat("d/m/Y", $fechaCompleta);
@@ -156,9 +180,14 @@ if (isset($_POST["enviar"])) {
     if (isset($_POST["horaLevantarse"])) {
         $horaLevantarse = $_POST["horaLevantarse"];
 
-        if (!validaHora($horaLevantarse, "08:00:00")) {
-            $errores["horaLevantarse"][] = "La hora de levantarse es incorrecta";
+        if ($horaLevantarse !== "") {
+            if (!validaHora($horaLevantarse, "08:00:00")) {
+                $errores["horaLevantarse"][] = "La hora de levantarse es incorrecta";
+            }
         }
+        else 
+            $errores["horaLevantarse"][] = "Debes indicar una hora de levantarse";
+        
 
         $datos["horaLevantarse"] = $horaLevantarse;
 
@@ -243,9 +272,11 @@ if (isset($_POST["enviar"])) {
     if (isset($_POST["hermanos"])) {
         $hermanos = $_POST["hermanos"];
 
-        if (!validaEntero($hermanos, 0, 20, 0)) {
-            $errores["hermanos"][] = "El número de hermanos es incorrecto";
+        if (validaEntero($hermanos, 0, 20, 0)) {
+            
         }
+        else 
+            $errores["hermanos"][] = "El número de hermanos es incorrecto";
 
         $datos["hermanos"] = $hermanos;
 
@@ -464,7 +495,7 @@ function formulario(array $datos, array $errores) {
         <label for="estado">Trabajando</label> <br>
         <input type="radio" name="estado" value="4" <?= (($datos["estado"] == "Jubilado")? "checked" : "") ?>>
         <label for="estado">Jubilado</label> <br>
-        <input type="radio" name="estado" value="5" <?= (($datos["estado"] == "")? "checked" : "") ?>>
+        <input type="radio" name="estado" value="5" <?= (($datos["estado"] == "Incorrecta")? "checked" : "") ?>>
         <label for="estado">Incorrecta</label> <br>
 
         <label for="estudios">Estudios:</label><br>

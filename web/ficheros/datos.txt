@@ -1,0 +1,2 @@
+nombre,Vicente,16,Noemí,
+Ordenador,123,638,
