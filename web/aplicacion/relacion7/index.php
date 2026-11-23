@@ -55,12 +55,21 @@ if (isset($_POST["borrar"])) {
         }
 
         //si está bien, quitamos el punto del array:
+        
         unset($puntos[$valorOptionSeleccionado]); //este unset NO es el de métodos mágicos de punto
+        $puntos = array_values($puntos); //reindexamos el array
         recargarImagen($nombreArchivo, $puntos);
         escribirAFichero($nombreArchivoDat, $puntos);
-        //reindexar el array: AQUÍ
+        
     }
 
+}
+
+if (isset($_POST["descargar"])) {
+
+    //redirigir a imagen.php
+    header("Location: ./imagen.php?");
+    exit;
 }
 
 //comprobar si se ha dado a insertar 
@@ -174,6 +183,43 @@ if (isset($_POST["guardar"])) {
     }
 }
 
+if (isset($_POST["subida"])) 
+    {
+        //recojo el nombre
+
+        //recojo el fichero
+        if (!isset($_FILES["archivo"]))
+            {
+                $errores["archivo"][] = "No se ha indicado fichero";
+            }
+        else {
+            //compruebo que se haya subido un archivo correcto
+            if ($_FILES["archivo"]["error"] !== 0) {
+                $errores["archivo"][] = "El fichero indicado no es correcto";
+            } 
+            if (!preg_match("/.txt$/", $_FILES['archivo']['name'])) { //si el fichero no es .txt
+                $errores["archivo"][] = "El fichero indicado no es .txt";
+            }
+        }
+        if (!$errores) {
+            
+            $nombreSubida=RUTABASE . "/ficheros/"; 
+            $nombreSubida=$nombreSubida.$_FILES['archivo']['name']; 
+             
+            if(!move_uploaded_file($_FILES['archivo']['tmp_name'],$nombreSubida)) 
+            { 
+                $errores["archivo"][] = "El archivo no se ha podido subir";
+            } 
+
+            $masPuntos = [];
+            leerDeFichero($_FILES['archivo']['name'], $masPuntos);
+            $puntos = array_merge($puntos, $masPuntos);
+            escribirAFichero($nombreArchivoDat, $puntos);
+            recargarImagen($nombreArchivo, $puntos);
+            
+        }
+    }
+
 
 //-------------------------
 
@@ -230,6 +276,17 @@ function cuerpo(array $datos, array $errores, array $puntos, string $nombreArchi
     
     <br>
 
+    
+
+    <form enctype="multipart/form-data" action="" method="post">
+        <!--MAX_FILE_SIZE debe preceder al campo de entrada de archivo-->
+        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+        <input name="archivo" type="file" /> 
+        
+        <input type="submit" value="Enviar fichero" name="subida"/> 
+    </form> <br>
+    <?php muestraErrores($errores, "archivo") ?><br>
+
     <a href="./pruebasPuntos.php">Pruebas Puntos</a>
     <?php
     
@@ -257,6 +314,7 @@ function formularioCombo(array $arrayPuntos, array $errores) {
             ?>
         </select> <?php muestraErrores($errores, "comboListaPuntos") ?><br>
         <input type="submit" value="Borrar" name="borrar">
+        <input type="submit" value="Descargar" name="descargar">
     </form>
 
     <?php
@@ -337,10 +395,10 @@ function muestraErrores (array $errores, string $nombreCampo):void {
         
         foreach ($errores as $clave => $valor) {
             if ($clave == $nombreCampo) {
-                echo "<span class='error'>";
+                //echo "<span class='error'>";
                 foreach ($valor as $error)
-                    echo "$clave => $error<br>" . PHP_EOL;
-                echo "</span>";
+                    echo "<span class='error'>$clave => $error</span><br><br>" . PHP_EOL;
+                //echo "</span>";
             }
             
 
@@ -497,13 +555,19 @@ function leerDeFichero(string $nombre, array &$datos): bool
         $linea = str_replace("\r", "", $linea);
         $linea = str_replace("\n", "", $linea);
 
-        if ($linea != "") {
+        if ($linea != "" && preg_match_all("/^[0-9]{1,3} ; [0-9]{1,3} ; \w+ ; (1|2|3)$/", $linea)) {
             //$linea = explode(" ; ", $linea);
 
             //creamos el punto
             $partesLinea = mb_split(" ; ", $linea); //tiene 4 partes (x, y, color, grosor)
 
-            $obPunto = new Punto($partesLinea[0], $partesLinea[1], $partesLinea[2], $partesLinea[3]);
+            try {
+                $obPunto = new Punto($partesLinea[0], $partesLinea[1], $partesLinea[2], $partesLinea[3]);
+            }
+            catch (Exception $e) {
+                continue;
+            }
+            
 
             $datos[] = $obPunto;
         }
