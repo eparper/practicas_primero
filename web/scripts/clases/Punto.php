@@ -19,13 +19,18 @@ class Punto {
         "blue" => [
             "nombre" => "azul",
             "rgb" => [0, 0, 255]
+        ],
+        "yellow" => [
+            "nombre" => "amarillo",
+            "rgb" => [255, 255, 0]
         ]
     ];
 
     public const GROSORES = [
         1 => "fino",
         2 => "medio",
-        3 => "grueso"
+        3 => "grueso",
+        4 => "muy grueso"
     ];
 
     //propiedades
